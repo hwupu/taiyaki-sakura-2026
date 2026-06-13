@@ -1,0 +1,50 @@
+---
+---
+
+<div id="bgm-player" style="position:fixed;bottom:1rem;right:1rem;display:flex;align-items:center;gap:0.5rem;background:rgba(252,234,236,0.85);backdrop-filter:blur(6px);padding:0.5rem 0.75rem;border-radius:9999px;box-shadow:0 2px 8px rgba(0,0,0,0.12);">
+  <audio id="bgm" loop preload="auto">
+    <source src="/audio/bgm.opus" type="audio/ogg; codecs=opus" />
+  </audio>
+  <button id="bgm-toggle" aria-label="Toggle music" style="font-size:1.25rem;background:none;border:none;padding:0;line-height:1;">🔊</button>
+  <input id="bgm-volume" type="range" min="0" max="1" step="0.05" value="0.5" aria-label="Volume" style="width:80px;accent-color:#e87a8f;" />
+</div>
+
+<script>
+  const audio = document.getElementById("bgm") as HTMLAudioElement;
+  const toggle = document.getElementById("bgm-toggle") as HTMLButtonElement;
+  const slider = document.getElementById("bgm-volume") as HTMLInputElement;
+
+  audio.volume = 0.5;
+
+  function setIcon() {
+    if (audio.muted || audio.volume === 0) {
+      toggle.textContent = "🔇";
+    } else {
+      toggle.textContent = "🔊";
+    }
+  }
+
+  // Autoplay — browsers may block it until first interaction
+  audio.play().catch(() => {
+    toggle.textContent = "▶️";
+    document.addEventListener("click", () => {
+      audio.play().then(setIcon);
+    }, { once: true });
+  });
+
+  toggle.addEventListener("click", (e) => {
+    e.stopPropagation();
+    if (audio.paused) {
+      audio.play().then(setIcon);
+    } else {
+      audio.muted = !audio.muted;
+      setIcon();
+    }
+  });
+
+  slider.addEventListener("input", () => {
+    audio.volume = parseFloat(slider.value);
+    if (audio.muted && audio.volume > 0) audio.muted = false;
+    setIcon();
+  });
+</script>
