@@ -1,18 +1,20 @@
 ---
 import { getRelativeLocaleUrl } from "astro:i18n";
 import Font from "astro/components/Font.astro";
-import "../styles/global.css";
+import { cn } from "@/lib/tailwindHelper";
+import Header from "@/components/layout/LayoutHeader.astro";
+import Footer from "@/components/layout/LayoutFooter.astro";
+import "@/styles/global.css";
 
 interface Props {
   title: string;
   description?: string;
-  hideNav?: boolean;
+  bodyClass?: string;
 }
 
-const { title, description, hideNav = false } = Astro.props;
+const { title, description, bodyClass } = Astro.props;
 const lang = Astro.currentLocale === "zh-TW" ? "zh-TW" : "en";
 
-// Strip locale prefix to get the bare path, then generate locale URLs
 const rawPath = Astro.url.pathname.startsWith("/zh")
   ? Astro.url.pathname.slice(3) || "/"
   : Astro.url.pathname;
@@ -43,25 +45,13 @@ const zhUrl = getRelativeLocaleUrl("zh-TW", rawPath);
     <link rel="alternate" hreflang="en" href={enUrl} />
     <link rel="alternate" hreflang="zh-TW" href={zhUrl} />
   </head>
-  <body>
-    {!hideNav && (
-      <header>
-        <nav>
-          <a href={getRelativeLocaleUrl(lang, "/")}>
-            {lang === "zh-TW" ? "首頁" : "Home"}
-          </a>
-        </nav>
-        <div>
-          <a href={enUrl} aria-current={lang === "en" ? "page" : undefined}>EN</a>
-          <a href={zhUrl} aria-current={lang === "zh-TW" ? "page" : undefined}>中文</a>
-        </div>
-      </header>
-    )}
+  <body class={cn("bg-pink-sakura", bodyClass)}>
+    <Header />
 
-    <main>
+    <main class="mx-auto max-w-480">
       <slot />
     </main>
 
-    {!hideNav && <footer></footer>}
+    <Footer />
   </body>
 </html>

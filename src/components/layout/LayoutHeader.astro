@@ -1,0 +1,43 @@
+---
+import { getRelativeLocaleUrl } from "astro:i18n";
+
+import BgmPlayer from "@/components/BgmPlayer.astro";
+
+const lang = Astro.currentLocale === "zh-TW" ? "zh-TW" : "en";
+
+const rawPath = Astro.url.pathname.startsWith("/zh")
+  ? Astro.url.pathname.slice(3) || "/"
+  : Astro.url.pathname;
+const enUrl = getRelativeLocaleUrl("en", rawPath);
+const zhUrl = getRelativeLocaleUrl("zh-TW", rawPath);
+---
+
+<header class="relative isolate mx-auto max-w-480">
+  <div class="bg-sakura-50 flex min-h-screen items-center justify-center">
+    <picture>
+      <source srcset="/images/taiyaki-type-ring@3x.avif" type="image/avif" />
+      <source srcset="/images/taiyaki-type-ring@3x.webp" type="image/webp" />
+      <img
+        src="/images/taiyaki-type-ring@3x.png"
+        alt="Taiyaki Sakura"
+        width="320"
+        class="max-w-[min(320px,80vw)]"
+      />
+    </picture>
+  </div>
+
+  <div class="absolute inset-x-0 bottom-0">
+    <BgmPlayer />
+    <nav>
+      <a href={getRelativeLocaleUrl(lang, "/")}>
+        {lang === "zh-TW" ? "首頁" : "Home"}
+      </a>
+    </nav>
+    <div>
+      <a href={enUrl} aria-current={lang === "en" ? "page" : undefined}> EN </a>
+      <a href={zhUrl} aria-current={lang === "zh-TW" ? "page" : undefined}>
+        中文
+      </a>
+    </div>
+  </div>
+</header>

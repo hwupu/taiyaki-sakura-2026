@@ -3,13 +3,60 @@
 @theme {
   --font-family-sans:
     var(--font-sans), var(--font-sans-tc), ui-sans-serif, system-ui, sans-serif;
-  --color-background: #fceaec;
+
+  /* Sakura — blush pink to deep red */
+  --color-sakura-50: oklch(0.952 0.02 9.6);
+  --color-sakura-100: oklch(0.904 0.051 7.6);
+  --color-sakura-200: oklch(0.814 0.09 17.4);
+  --color-sakura-400: oklch(0.688 0.137 13.9);
+  --color-sakura-700: oklch(0.421 0.144 20.1);
+  --color-sakura-900: oklch(0.405 0.04 30.2);
+
+  /* Gold — bright yellow to burnt orange */
+  --color-gold-100: oklch(0.921 0.172 100.5);
+  --color-gold-200: oklch(0.842 0.132 76.3);
+  --color-gold-300: oklch(0.796 0.156 71.3);
+  --color-gold-400: oklch(0.74 0.163 56.7);
+  --color-gold-700: oklch(0.602 0.149 44.8);
+
+  /* Shade — warm yellow to dark brown */
+  --color-shade-100: oklch(0.926 0.146 99);
+  --color-shade-300: oklch(0.744 0.079 86.5);
+  --color-shade-500: oklch(0.556 0.063 86.1);
+  --color-shade-700: oklch(0.414 0.029 79.4);
+}
+
+@layer utilities {
+  .bg-pink-sakura {
+    background-image: url("/images/bg-pink-sakura.png");
+    background-image: image-set(
+      url("/images/bg-pink-sakura.avif") type("image/avif") 1x,
+      url("/images/bg-pink-sakura@2x.avif") type("image/avif") 2x,
+      url("/images/bg-pink-sakura.webp") type("image/webp") 1x,
+      url("/images/bg-pink-sakura@2x.webp") type("image/webp") 2x,
+      url("/images/bg-pink-sakura.png") 1x,
+      url("/images/bg-pink-sakura@2x.png") 2x
+    );
+    background-repeat: repeat;
+  }
+
+  .bg-white-sakura {
+    background-image: url("/images/bg-white-sakura.png");
+    background-image: image-set(
+      url("/images/bg-white-sakura.avif") type("image/avif") 1x,
+      url("/images/bg-white-sakura@2x.avif") type("image/avif") 2x,
+      url("/images/bg-white-sakura.webp") type("image/webp") 1x,
+      url("/images/bg-white-sakura@2x.webp") type("image/webp") 2x,
+      url("/images/bg-white-sakura.png") 1x,
+      url("/images/bg-white-sakura@2x.png") 2x
+    );
+    background-repeat: repeat;
+  }
 }
 
 @layer base {
   body {
-    background-color: var(--color-background);
-    /* hotspot x y = tip of the petal; tweak if click point feels off */
+    background-color: var(--color-sakura-50);
     cursor:
       image-set(
           url("/cursors/default.png") 1x,
@@ -35,5 +82,34 @@
         )
         12 0,
       pointer;
+  }
+
+  /* Focus ring for inline navigation elements.
+     -m-0.5 / p-0.5 adds visual breathing room without shifting layout.
+     ring-white creates a white "halo" gap between the element and the sakura outline. */
+  a {
+    @apply focus-visible:outline-sakura-400 -m-0.5 inline-flex rounded p-0.5 focus-visible:ring-[5px] focus-visible:ring-white focus-visible:ring-offset-0 focus-visible:outline-2 focus-visible:outline-offset-1;
+  }
+
+  /* Same ring treatment for buttons and disclosure toggles (<summary> inside <details>).
+     No inline-flex here since these are typically block/inline-block. */
+  button,
+  [role="button"],
+  summary {
+    @apply focus-visible:outline-sakura-400 -m-0.5 rounded p-0.5 focus-visible:ring-[5px] focus-visible:ring-white focus-visible:ring-offset-0 focus-visible:outline-2 focus-visible:outline-offset-1;
+  }
+
+  /* Form controls get the ring/outline only — no padding trick because they
+     already have a defined border box; adding -m/-p would shift surrounding text. */
+  input:not([type="hidden"]),
+  select,
+  textarea {
+    @apply focus-visible:outline-sakura-400 rounded focus-visible:ring-[5px] focus-visible:ring-white focus-visible:ring-offset-0 focus-visible:outline-2 focus-visible:outline-offset-1;
+  }
+
+  /* Catch-all for custom focusable widgets (e.g. a copyable server IP span).
+     tabindex="-1" is intentionally excluded — those are programmatic-focus-only elements. */
+  [tabindex]:not([tabindex="-1"]) {
+    @apply focus-visible:outline-sakura-400 -m-0.5 rounded p-0.5 focus-visible:ring-[5px] focus-visible:ring-white focus-visible:ring-offset-0 focus-visible:outline-2 focus-visible:outline-offset-1;
   }
 }
