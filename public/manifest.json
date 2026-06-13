@@ -1,0 +1,11 @@
+{
+    "name": "Taiyaki Sakura",
+    "short_name": "Sakura",
+    "icons": [{
+        "src": "google-touch-icon.png",
+        "sizes": "540x540"
+    }],
+    "background_color": "#fceaec",
+    "theme_color": "#fceaec",
+    "display": "fullscreen"
+}
