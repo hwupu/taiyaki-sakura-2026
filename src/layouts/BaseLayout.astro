@@ -6,9 +6,10 @@ import "../styles/global.css";
 interface Props {
   title: string;
   description?: string;
+  hideNav?: boolean;
 }
 
-const { title, description } = Astro.props;
+const { title, description, hideNav = false } = Astro.props;
 const lang = Astro.currentLocale === "zh-TW" ? "zh-TW" : "en";
 
 // Strip locale prefix to get the bare path, then generate locale URLs
@@ -23,14 +24,12 @@ const zhUrl = getRelativeLocaleUrl("zh-TW", rawPath);
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="generator" content={Astro.generator} />
     {description && <meta name="description" content={description} />}
     <title>{title}</title>
 
     <!-- Favicons -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" type="image/png" href="/favicon.png" />
-    <link rel="shortcut icon" href="/favicon.ico" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="mask-icon" href="/mask-icon.svg" color="#fceaec" />
     <link rel="manifest" href="/manifest.json" />
@@ -45,23 +44,24 @@ const zhUrl = getRelativeLocaleUrl("zh-TW", rawPath);
     <link rel="alternate" hreflang="zh-TW" href={zhUrl} />
   </head>
   <body>
-    <header>
-      <nav>
-        <a href={getRelativeLocaleUrl(lang, "/")}>
-          {lang === "zh-TW" ? "首頁" : "Home"}
-        </a>
-      </nav>
-      <div>
-        <a href={enUrl} aria-current={lang === "en" ? "page" : undefined}>EN</a>
-        <a href={zhUrl} aria-current={lang === "zh-TW" ? "page" : undefined}>中文</a>
-      </div>
-    </header>
+    {!hideNav && (
+      <header>
+        <nav>
+          <a href={getRelativeLocaleUrl(lang, "/")}>
+            {lang === "zh-TW" ? "首頁" : "Home"}
+          </a>
+        </nav>
+        <div>
+          <a href={enUrl} aria-current={lang === "en" ? "page" : undefined}>EN</a>
+          <a href={zhUrl} aria-current={lang === "zh-TW" ? "page" : undefined}>中文</a>
+        </div>
+      </header>
+    )}
 
     <main>
       <slot />
     </main>
 
-    <footer>
-    </footer>
+    {!hideNav && <footer></footer>}
   </body>
 </html>

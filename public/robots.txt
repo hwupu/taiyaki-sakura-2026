@@ -1,0 +1,19 @@
+# Chinese search engine crawlers — disallow all
+User-agent: Baiduspider
+Disallow: /
+
+User-agent: Sogou web spider
+Disallow: /
+
+User-agent: 360Spider
+Disallow: /
+
+User-agent: YisouSpider
+Disallow: /
+
+User-agent: Bytespider
+Disallow: /
+
+# All other crawlers (including Google) — allow all
+User-agent: *
+Allow: /

@@ -2,4 +2,11 @@
 
 @theme {
   --font-family-sans: var(--font-sans), var(--font-sans-tc), ui-sans-serif, system-ui, sans-serif;
+  --color-background: #fceaec;
+}
+
+@layer base {
+  body {
+    background-color: var(--color-background);
+  }
 }
