@@ -1,17 +1,18 @@
 ---
-import { Picture } from "astro:assets";
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import logo from "../../images/taiyaki-type-ring@3x.png";
 ---
 
 <BaseLayout title="鯛魚燒 Sakura — Minecraft 伺服器" hideNav>
   <div class="flex min-h-screen items-center justify-center">
-    <Picture
-      src={logo}
-      formats={["avif", "webp"]}
-      alt="Taiyaki Sakura"
-      width={320}
-      class="max-w-[min(320px,80vw)]"
-    />
+    <picture>
+      <source srcset="/images/taiyaki-type-ring@3x.avif" type="image/avif" />
+      <source srcset="/images/taiyaki-type-ring@3x.webp" type="image/webp" />
+      <img
+        src="/images/taiyaki-type-ring@3x.png"
+        alt="Taiyaki Sakura"
+        width="320"
+        class="max-w-[min(320px,80vw)]"
+      />
+    </picture>
   </div>
 </BaseLayout>
