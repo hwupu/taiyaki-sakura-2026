@@ -8,5 +8,18 @@
 @layer base {
   body {
     background-color: var(--color-background);
+    /* hotspot x y = tip of the petal; tweak if click point feels off */
+    cursor: image-set(
+      url('/cursors/default.png') 1x,
+      url('/cursors/default@2x.png') 2x
+    ) 22 4, default;
+  }
+
+  a, button, [role="button"], label[for], select, summary,
+  [type="button"], [type="submit"], [type="reset"] {
+    cursor: image-set(
+      url('/cursors/pointer.png') 1x,
+      url('/cursors/pointer@2x.png') 2x
+    ) 22 4, pointer;
   }
 }
