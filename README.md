@@ -1,43 +1,28 @@
-# Astro Starter Kit: Minimal
+# Taiyaki Sakura
 
-```sh
-pnpm create astro@latest -- --template minimal
-```
+Minecraft server website — bilingual (EN / 中文), deployed on Cloudflare Workers via Astro 6.4 SSR.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## Commands
 
-## 🚀 Project Structure
+| Command | Action |
+| :--- | :--- |
+| `pnpm install` | Install dependencies |
+| `pnpm dev` | Start local dev server at `localhost:4321` |
+| `pnpm build` | Build for production to `./dist/` |
+| `pnpm preview` | Preview production build locally |
+| `pnpm optimize-images` | Convert `src/images/*.png` → AVIF + WebP + PNG in `public/images/` |
 
-Inside of your Astro project, you'll see the following folders and files:
+## Image optimization
 
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
+Images are **not** optimized automatically on `dev` or `build`. Run `pnpm optimize-images` manually after adding or changing source images in `src/images/`.
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+Source images live in `src/images/` and are not served directly — the optimized outputs in `public/images/` are what gets deployed. Commit both the source and the optimized outputs.
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+## i18n
 
-Any static assets, like images, can be placed in the `public/` directory.
+- `/` — English (default, no prefix)
+- `/zh/` — Traditional Chinese
 
-## 🧞 Commands
+## Deployment
 
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `pnpm install`             | Installs dependencies                            |
-| `pnpm dev`             | Starts local dev server at `localhost:4321`      |
-| `pnpm build`           | Build your production site to `./dist/`          |
-| `pnpm preview`         | Preview your build locally, before deploying     |
-| `pnpm astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `pnpm astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+Deployed to Cloudflare Workers. Run `npx wrangler deploy` after `pnpm build`, or push to the branch connected to your Cloudflare Pages / Workers CI.

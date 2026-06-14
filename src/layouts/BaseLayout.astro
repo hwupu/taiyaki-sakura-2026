@@ -1,57 +1,21 @@
 ---
-import { getRelativeLocaleUrl } from "astro:i18n";
-import Font from "astro/components/Font.astro";
-import { cn } from "@/lib/tailwindHelper";
+import Barebone from "@/layouts/Barebone.astro";
 import Header from "@/components/layout/LayoutHeader.astro";
 import Footer from "@/components/layout/LayoutFooter.astro";
-import "@/styles/global.css";
 
 interface Props {
   title: string;
   description?: string;
   bodyClass?: string;
 }
-
-const { title, description, bodyClass } = Astro.props;
-const lang = Astro.currentLocale === "zh-TW" ? "zh-TW" : "en";
-
-const rawPath = Astro.url.pathname.startsWith("/zh")
-  ? Astro.url.pathname.slice(3) || "/"
-  : Astro.url.pathname;
-const enUrl = getRelativeLocaleUrl("en", rawPath);
-const zhUrl = getRelativeLocaleUrl("zh-TW", rawPath);
 ---
 
-<html lang={lang}>
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    {description && <meta name="description" content={description} />}
-    <title>{title}</title>
+<Barebone {...Astro.props}>
+  <Header />
 
-    <!-- Favicons -->
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="icon" type="image/png" href="/favicon.png" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-    <link rel="mask-icon" href="/mask-icon.svg" color="#fceaec" />
-    <link rel="manifest" href="/manifest.json" />
-    <meta name="theme-color" content="#fceaec" />
+  <main class="bg-white-sakura mx-auto max-w-480 bg-white">
+    <slot />
+  </main>
 
-    <!-- Self-hosted Google Fonts (downloaded at build time) -->
-    <Font cssVariable="--font-sans" preload />
-    <Font cssVariable="--font-sans-tc" />
-
-    <!-- Alternate language links for SEO -->
-    <link rel="alternate" hreflang="en" href={enUrl} />
-    <link rel="alternate" hreflang="zh-TW" href={zhUrl} />
-  </head>
-  <body class={cn("bg-pink-sakura", bodyClass)}>
-    <Header />
-
-    <main class="mx-auto max-w-480">
-      <slot />
-    </main>
-
-    <Footer />
-  </body>
-</html>
+  <Footer />
+</Barebone>

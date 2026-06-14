@@ -12,27 +12,33 @@ const enUrl = getRelativeLocaleUrl("en", rawPath);
 const zhUrl = getRelativeLocaleUrl("zh-TW", rawPath);
 ---
 
-<header class="relative isolate mx-auto max-w-480">
-  <div class="bg-sakura-50 flex min-h-screen items-center justify-center">
-    <picture>
-      <source srcset="/images/taiyaki-type-ring@3x.avif" type="image/avif" />
-      <source srcset="/images/taiyaki-type-ring@3x.webp" type="image/webp" />
+<header
+  class="sticky top-0 mx-auto h-(--header-height) max-w-480 bg-white/75 shadow-lg backdrop-blur"
+>
+  <div
+    class="pointer-events-none absolute bottom-0 left-[calc(50vw-min(160px,40vw)+1rem)] h-[calc((min(calc(100vh-env(safe-area-inset-bottom)),45rem)+var(--header-height))/2)]"
+  >
+    <picture class="sticky -top-4">
+      <source srcset="/images/type-logo-sakura@3x.avif" type="image/avif" />
+      <source srcset="/images/type-logo-sakura@3x.webp" type="image/webp" />
       <img
-        src="/images/taiyaki-type-ring@3x.png"
+        src="/images/type-logo-sakura@3x.png"
         alt="Taiyaki Sakura"
-        width="320"
-        class="max-w-[min(320px,80vw)]"
+        width="280"
+        class="max-w-[min(280px,70vw)]"
       />
     </picture>
   </div>
 
-  <div class="absolute inset-x-0 bottom-0">
-    <BgmPlayer />
+  <div
+    class="container mx-auto flex h-(--header-height) items-center justify-between"
+  >
     <nav>
       <a href={getRelativeLocaleUrl(lang, "/")}>
         {lang === "zh-TW" ? "首頁" : "Home"}
       </a>
     </nav>
+    <div class="pointer-events-none max-w-[min(280px,70vw)]"></div>
     <div>
       <a href={enUrl} aria-current={lang === "en" ? "page" : undefined}> EN </a>
       <a href={zhUrl} aria-current={lang === "zh-TW" ? "page" : undefined}>
@@ -41,3 +47,4 @@ const zhUrl = getRelativeLocaleUrl("zh-TW", rawPath);
     </div>
   </div>
 </header>
+<BgmPlayer />

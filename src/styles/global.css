@@ -24,6 +24,9 @@
   --color-shade-300: oklch(0.744 0.079 86.5);
   --color-shade-500: oklch(0.556 0.063 86.1);
   --color-shade-700: oklch(0.414 0.029 79.4);
+
+  /* UI variables */
+  --header-height: 6.5rem;
 }
 
 @layer utilities {
@@ -77,11 +80,20 @@
   [type="reset"] {
     cursor:
       image-set(
+          url("/cursors/default.png") 1x,
+          url("/cursors/default@2x.png") 2x
+        )
+        0 0,
+      default;
+    /* Temporarily disabled because design change.
+    cursor:
+      image-set(
           url("/cursors/pointer.png") 1x,
           url("/cursors/pointer@2x.png") 2x
         )
         12 0,
       pointer;
+    */
   }
 
   /* Focus ring for inline navigation elements.
