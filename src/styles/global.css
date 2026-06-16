@@ -59,6 +59,10 @@
 
 @layer base {
   body {
+    @apply selection:bg-sakura-700 selection:text-sakura-50;
+  }
+
+  body {
     background-color: var(--color-sakura-50);
     cursor:
       image-set(
@@ -99,8 +103,8 @@
   /* Focus ring for inline navigation elements.
      -m-0.5 / p-0.5 adds visual breathing room without shifting layout.
      ring-white creates a white "halo" gap between the element and the sakura outline. */
-  a {
-    @apply focus-visible:outline-sakura-400 -m-0.5 inline-flex rounded p-0.5 focus-visible:ring-[5px] focus-visible:ring-white focus-visible:ring-offset-0 focus-visible:outline-2 focus-visible:outline-offset-1;
+  a:not(.no-outline) {
+    @apply hover:text-sakura-400 focus-visible:outline-sakura-400 -m-0.5 inline-flex rounded p-0.5 focus-visible:ring-[5px] focus-visible:ring-white focus-visible:ring-offset-0 focus-visible:outline-2 focus-visible:outline-offset-1 motion-safe:transition-colors;
   }
 
   /* Same ring treatment for buttons and disclosure toggles (<summary> inside <details>).

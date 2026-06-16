@@ -1,0 +1,171 @@
+---
+import type { ComponentProps } from "astro/types";
+import Screenshot from "./HowToImage.astro";
+
+const screenshots: ComponentProps<typeof Screenshot>[] = [
+  {
+    filename: "howto/howto_zh_1",
+    alt: "在瀏覽器中開啟 Prism Launcher 下載頁面",
+  },
+  {
+    filename: "howto/howto_zh_2",
+    alt: "Prism Launcher 介面，工具列上顯示「新增實例」按鈕",
+  },
+  {
+    filename: "howto/howto_zh_3",
+    alt: "新增實例視窗，已選擇「匯入」分頁，並顯示 URL 輸入欄位",
+  },
+  {
+    filename: "howto/howto_zh_4",
+    alt: "Prism Launcher 顯示已匯入的 Taiyaki Sakura 實例，右側面板有「啟動」按鈕",
+  },
+  {
+    filename: "howto/howto_zh_5",
+    alt: "Minecraft 主選單，顯示「多人遊戲」按鈕",
+  },
+  {
+    filename: "howto/howto_zh_6",
+    alt: "Minecraft 伺服器列表，顯示 Taiyaki Sakura 伺服器項目與「編輯」按鈕",
+  },
+  {
+    filename: "howto/howto_zh_7",
+    alt: "編輯伺服器視窗，顯示伺服器位址輸入欄位",
+  },
+  {
+    filename: "howto/howto_zh_8",
+    alt: "Minecraft 遊戲畫面，聊天欄顯示 /login 指令",
+  },
+];
+---
+
+<section class="text-sakura-900 container mx-auto flex flex-col gap-10 p-10">
+  <h1 class="text-center text-2xl font-semibold md:text-3xl">安裝建議設定</h1>
+
+  <section class="flex flex-col gap-x-6 gap-y-2 md:flex-row">
+    <Screenshot {...screenshots[0]} />
+    <div class="flex flex-col gap-4 py-6">
+      <h3 class="text-xl font-semibold">1. Prism Launcher</h3>
+      <div class="flex flex-col gap-1">
+        <p>
+          從以下連結下載並安裝 <a
+            href="https://prismlauncher.org/download"
+            class="underline"
+            target="_blank"
+            rel="noopener noreferrer">Prism Launcher</a
+          >：<code class="break-all select-all"
+            >https://prismlauncher.org/download</code
+          >。
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="flex flex-col gap-x-6 gap-y-2 md:flex-row">
+    <Screenshot {...screenshots[1]} />
+    <div class="flex flex-col gap-4 py-6">
+      <h3 class="text-xl font-semibold">2. 新增實例</h3>
+      <div class="flex flex-col gap-1">
+        <p>
+          開啟 <em>Prism Launcher</em>，點擊左上角的「<em
+            class="no-italic font-semibold">新增實例</em
+          >」按鈕。
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="flex flex-col gap-x-6 gap-y-2 md:flex-row">
+    <Screenshot {...screenshots[2]} />
+    <div class="flex flex-col gap-4 py-6">
+      <h3 class="text-xl font-semibold">3. 匯入</h3>
+      <div class="flex flex-col gap-1">
+        <p>
+          在左側選單選擇「<em class="no-italic font-semibold">匯入</em>」分頁。
+        </p>
+      </div>
+      <h3 class="text-xl font-semibold">4. 預設 URL</h3>
+      <div class="flex flex-col gap-1">
+        <p>
+          在位址欄輸入：<code
+            class="bg-sakura-100 inline-block rounded px-1 py-0.5 break-all select-all"
+            >https://cdn.phwu.work/Taiyaki_Sakura.zip</code
+          >，然後點擊「確定」關閉視窗。
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="flex flex-col gap-x-6 gap-y-2 md:flex-row">
+    <Screenshot {...screenshots[3]} />
+    <div class="flex flex-col gap-4 py-6">
+      <h3 class="text-xl font-semibold">5. 啟動</h3>
+      <div class="flex flex-col gap-1">
+        <p>
+          點擊右側面板的「<em class="no-italic font-semibold">啟動</em
+          >」按鈕開始遊戲。
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="flex flex-col gap-x-6 gap-y-2 md:flex-row">
+    <Screenshot {...screenshots[4]} />
+    <div class="flex flex-col gap-4 py-6">
+      <h3 class="text-xl font-semibold">6. 多人遊戲</h3>
+      <div class="flex flex-col gap-1">
+        <p>
+          點擊「<em class="no-italic font-semibold">多人遊戲</em>」按鈕。
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="flex flex-col gap-x-6 gap-y-2 md:flex-row">
+    <Screenshot {...screenshots[5]} />
+    <div class="flex flex-col gap-4 py-6">
+      <h3 class="text-xl font-semibold">7. Taiyaki Sakura</h3>
+      <div class="flex flex-col gap-1">
+        <p>
+          選擇「<em class="no-italic font-semibold">Taiyaki Sakura</em
+          >」伺服器。
+        </p>
+      </div>
+      <h3 class="text-xl font-semibold">8. 編輯</h3>
+      <div class="flex flex-col gap-1">
+        <p>
+          點擊「<em class="no-italic font-semibold">編輯</em
+          >」按鈕以更新伺服器位址。
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="flex flex-col gap-x-6 gap-y-2 md:flex-row">
+    <Screenshot {...screenshots[6]} />
+    <div class="flex flex-col gap-4 py-6">
+      <h3 class="text-xl font-semibold">9. 伺服器位址</h3>
+      <div class="flex flex-col gap-1">
+        <p>
+          請參考邀請函填入正確的「<em class="no-italic font-semibold"
+            >伺服器位址</em
+          >」，然後點擊「完成」關閉視窗。
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="flex flex-col gap-x-6 gap-y-2 md:flex-row">
+    <Screenshot {...screenshots[7]} />
+    <div class="flex flex-col gap-4 py-6">
+      <h3 class="text-xl font-semibold">10. 加入</h3>
+      <div class="flex flex-col gap-1">
+        <p>
+          輸入指令 <code
+            class="bg-sakura-100 inline-block rounded px-1 py-0.5 break-all select-all"
+            >/login <span class="italic">&lt;密碼&gt;</span></code
+          >（不含角括號）登入。密碼請參考邀請函。
+        </p>
+      </div>
+    </div>
+  </section>
+</section>

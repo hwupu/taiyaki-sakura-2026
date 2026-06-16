@@ -1,0 +1,176 @@
+---
+import type { ComponentProps } from "astro/types";
+import Screenshot from "./HowToImage.astro";
+
+const screenshots: ComponentProps<typeof Screenshot>[] = [
+  {
+    filename: "howto/howto_en_1",
+    alt: "Prism Launcher download page open in a web browser",
+  },
+  {
+    filename: "howto/howto_en_2",
+    alt: "Prism Launcher with the Add Instance button visible in the toolbar",
+  },
+  {
+    filename: "howto/howto_en_3",
+    alt: "Add Instance dialog with the Import tab selected and a URL input field",
+  },
+  {
+    filename: "howto/howto_en_4",
+    alt: "Prism Launcher showing the imported Taiyaki Sakura instance with the Launch button on the right panel",
+  },
+  {
+    filename: "howto/howto_en_5",
+    alt: "Minecraft main menu with the Multiplayer button",
+  },
+  {
+    filename: "howto/howto_en_6",
+    alt: "Minecraft server list showing the Taiyaki Sakura entry with an Edit button",
+  },
+  {
+    filename: "howto/howto_en_7",
+    alt: "Edit Server dialog with the server address input field",
+  },
+  {
+    filename: "howto/howto_en_8",
+    alt: "Minecraft game with the chat bar open showing the /login command",
+  },
+];
+---
+
+<section class="text-sakura-900 container mx-auto flex flex-col gap-10 p-10">
+  <h1 class="text-center text-2xl font-semibold md:text-3xl">
+    Setup Recommendation
+  </h1>
+
+  <section class="flex flex-col gap-x-6 gap-y-2 md:flex-row">
+    <Screenshot {...screenshots[0]} />
+    <div class="flex flex-col gap-4 py-6">
+      <h3 class="text-xl font-semibold">1. Prism Launcher</h3>
+      <div class="flex flex-col gap-1">
+        <p>
+          Download and install <a
+            href="https://prismlauncher.org/download"
+            class="underline"
+            target="_blank"
+            rel="noopener noreferrer">Prism Launcher</a
+          > from: <code class="break-all select-all"
+            >https://prismlauncher.org/download</code
+          >.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="flex flex-col gap-x-6 gap-y-2 md:flex-row">
+    <Screenshot {...screenshots[1]} />
+    <div class="flex flex-col gap-4 py-6">
+      <h3 class="text-xl font-semibold">2. Add Instance</h3>
+      <div class="flex flex-col gap-1">
+        <p>
+          Launch <em>Prism Launcher</em>, then click "<em
+            class="no-italic font-semibold">Add Instance</em
+          >" button on upper left corner.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="flex flex-col gap-x-6 gap-y-2 md:flex-row">
+    <Screenshot {...screenshots[2]} />
+    <div class="flex flex-col gap-4 py-6">
+      <h3 class="text-xl font-semibold">3. Import</h3>
+      <div class="flex flex-col gap-1">
+        <p>
+          Select "<em class="no-italic font-semibold">Import</em>" tab on the
+          left sidebar.
+        </p>
+      </div>
+      <h3 class="text-xl font-semibold">4. Preset URL</h3>
+      <div class="flex flex-col gap-1">
+        <p>
+          Fill in the location text field: <code
+            class="bg-sakura-100 inline-block rounded px-1 py-0.5 break-all select-all"
+            >https://cdn.phwu.work/Taiyaki_Sakura.zip</code
+          >, then click "OK" to close the window.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="flex flex-col gap-x-6 gap-y-2 md:flex-row">
+    <Screenshot {...screenshots[3]} />
+    <div class="flex flex-col gap-4 py-6">
+      <h3 class="text-xl font-semibold">5. Launch</h3>
+      <div class="flex flex-col gap-1">
+        <p>
+          Click "<em class="no-italic font-semibold">Launch</em>" button on
+          right side panel to start playing.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="flex flex-col gap-x-6 gap-y-2 md:flex-row">
+    <Screenshot {...screenshots[4]} />
+    <div class="flex flex-col gap-4 py-6">
+      <h3 class="text-xl font-semibold">6. Multiplayer</h3>
+      <div class="flex flex-col gap-1">
+        <p>
+          Click on the "<em class="no-italic font-semibold">Multiplayer</em>"
+          button.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="flex flex-col gap-x-6 gap-y-2 md:flex-row">
+    <Screenshot {...screenshots[5]} />
+    <div class="flex flex-col gap-4 py-6">
+      <h3 class="text-xl font-semibold">7. Taiyaki Sakura</h3>
+      <div class="flex flex-col gap-1">
+        <p>
+          Select the "<em class="no-italic font-semibold">Taiyaki Sakura</em>"
+          server instance.
+        </p>
+      </div>
+      <h3 class="text-xl font-semibold">8. Edit</h3>
+      <div class="flex flex-col gap-1">
+        <p>
+          Click on the "<em class="no-italic font-semibold">Edit</em>" button to
+          update server address.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="flex flex-col gap-x-6 gap-y-2 md:flex-row">
+    <Screenshot {...screenshots[6]} />
+    <div class="flex flex-col gap-4 py-6">
+      <h3 class="text-xl font-semibold">9. Server Address</h3>
+      <div class="flex flex-col gap-1">
+        <p>
+          Please refer to the invitation for the correct "<em
+            class="no-italic font-semibold">server address</em
+          >", then click "Done" to close.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="flex flex-col gap-x-6 gap-y-2 md:flex-row">
+    <Screenshot {...screenshots[7]} />
+    <div class="flex flex-col gap-4 py-6">
+      <h3 class="text-xl font-semibold">10. Join</h3>
+      <div class="flex flex-col gap-1">
+        <p>
+          Type the command <code
+            class="bg-sakura-100 inline-block rounded px-1 py-0.5 select-all"
+            >/login <span class="italic">&lt;password&gt;</span></code
+          > (without angle brackets) to sign in. Please refer to the invitation for
+          <em class="no-italic font-semibold">your password</em>.
+        </p>
+      </div>
+    </div>
+  </section>
+</section>

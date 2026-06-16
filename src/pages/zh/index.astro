@@ -2,6 +2,8 @@
 import Barebone from "@/layouts/Barebone.astro";
 import Header from "@/components/layout/LayoutHeader.astro";
 import Footer from "@/components/layout/LayoutFooter.astro";
+
+import HowTo from "@/components/howto/HowToZhV1.astro";
 ---
 
 <Barebone title="Taiyaki Sakura">
@@ -20,9 +22,8 @@ import Footer from "@/components/layout/LayoutFooter.astro";
     </picture>
   </aside>
   <Header />
-  <main class="bg-white-sakura mx-auto max-w-480 bg-white">
-    <div class="h-screen"></div>
-    <div class="h-screen"></div>
+  <main class="bg-white-sakura mx-auto max-w-480 bg-white py-10">
+    <HowTo />
   </main>
 
   <Footer />

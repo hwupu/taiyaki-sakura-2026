@@ -31,20 +31,21 @@ const zhUrl = getRelativeLocaleUrl("zh-TW", rawPath);
   </div>
 
   <div
-    class="container mx-auto flex h-(--header-height) items-center justify-between"
+    class="container mx-auto flex h-(--header-height) items-center justify-between px-4"
   >
+    <div>
+      {lang === "zh-TW" ? <a href={enUrl}> EN </a> : <a href={zhUrl}>中文</a>}
+    </div>
+    {
+      /*
     <nav>
       <a href={getRelativeLocaleUrl(lang, "/")}>
         {lang === "zh-TW" ? "首頁" : "Home"}
       </a>
     </nav>
+    */
+    }
     <div class="pointer-events-none max-w-[min(280px,70vw)]"></div>
-    <div>
-      <a href={enUrl} aria-current={lang === "en" ? "page" : undefined}> EN </a>
-      <a href={zhUrl} aria-current={lang === "zh-TW" ? "page" : undefined}>
-        中文
-      </a>
-    </div>
+    <BgmPlayer />
   </div>
 </header>
-<BgmPlayer />

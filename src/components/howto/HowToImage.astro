@@ -1,0 +1,21 @@
+---
+import { cn } from "@/lib/tailwindHelper";
+
+interface Props {
+  filename: string;
+  alt: string;
+  class?: string;
+}
+const { filename, alt, class: className } = Astro.props;
+---
+
+<picture class="flex-none">
+  <source srcset={`/images/${filename}.avif`} type="image/avif" />
+  <source srcset={`/images/${filename}.webp`} type="image/webp" />
+  <img
+    src={`/images/${filename}.png`}
+    alt={alt}
+    width="640"
+    class={cn("rounded-xl w-160", className)}
+  />
+</picture>
