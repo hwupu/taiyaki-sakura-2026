@@ -8,7 +8,7 @@ import HowTo from "@/components/howto/HowToZhV1.astro";
 
 <Barebone title="Taiyaki Sakura">
   <aside
-    class="bg-sakura-50 mx-auto flex h-[calc(100vh-env(safe-area-inset-bottom))] max-h-180 max-w-480 items-center justify-center"
+    class="bg-sakura-50 mx-auto flex h-[calc(100vh-env(safe-area-inset-bottom))] max-h-180 max-w-480 flex-col items-center justify-center"
   >
     <picture>
       <source srcset="/images/taiyaki-type-ring@3x.avif" type="image/avif" />
@@ -20,6 +20,19 @@ import HowTo from "@/components/howto/HowToZhV1.astro";
         class="pointer-events-none max-w-[min(320px,80vw)]"
       />
     </picture>
+    <svg
+      class="text-sakura-200 absolute bottom-10 animate-bounce"
+      xmlns="http://www.w3.org/2000/svg"
+      width="2rem"
+      height="2rem"
+      viewBox="0 0 640 640"
+    >
+      <path d="M0 0h640v640H0z" fill="none"></path>
+      <path
+        fill="currentColor"
+        d="M342.6 534.6c-12.5 12.5-32.8 12.5-45.3 0l-160-160c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L320 466.7l137.4-137.3c12.5-12.5 32.8-12.5 45.3 0s12.5 32.8 0 45.3l-160 160zm160-352l-160 160c-12.5 12.5-32.8 12.5-45.3 0l-160-160c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L320 274.7l137.4-137.3c12.5-12.5 32.8-12.5 45.3 0s12.5 32.8 0 45.3z"
+      ></path>
+    </svg>
   </aside>
   <Header />
   <main class="bg-white-sakura mx-auto max-w-480 bg-white py-10">
