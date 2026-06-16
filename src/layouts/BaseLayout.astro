@@ -13,7 +13,9 @@ interface Props {
 <Barebone {...Astro.props}>
   <Header />
 
-  <main class="bg-white-sakura mx-auto max-w-480 bg-white">
+  <main
+    class="bg-white-sakura text-sakura-900 mx-auto max-w-480 bg-white pt-[calc(var(--header-height)+1rem)] pb-10"
+  >
     <slot />
   </main>
 

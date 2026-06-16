@@ -13,29 +13,11 @@ const zhUrl = getRelativeLocaleUrl("zh-TW", rawPath);
 ---
 
 <header
-  class="sticky top-0 mx-auto h-(--header-height) max-w-480 bg-white/75 shadow-lg backdrop-blur"
+  class="sticky top-0 z-20 -mt-[calc(var(--header-height)+env(safe-area-inset-bottom)+var(--header-margin)+0.5rem)] h-[calc(var(--header-height)+env(safe-area-inset-bottom)+var(--header-margin)+0.5rem)]"
 >
   <div
-    class="pointer-events-none absolute bottom-0 left-[calc(50vw-min(160px,40vw)+1rem)] h-[calc((min(calc(100vh-env(safe-area-inset-bottom)),45rem)+var(--header-height))/2)]"
+    class="sticky top-2 flex h-(--header-height) justify-center md:mx-auto md:w-fit md:max-w-480 md:gap-10 md:rounded-xl md:bg-white/50 md:px-10 md:shadow md:backdrop-blur-sm"
   >
-    <picture class="sticky -top-4">
-      <source srcset="/images/type-logo-sakura@3x.avif" type="image/avif" />
-      <source srcset="/images/type-logo-sakura@3x.webp" type="image/webp" />
-      <img
-        src="/images/type-logo-sakura@3x.png"
-        alt="Taiyaki Sakura"
-        width="280"
-        class="max-w-[min(280px,70vw)]"
-      />
-    </picture>
-  </div>
-
-  <div
-    class="container mx-auto flex h-(--header-height) items-center justify-between px-4"
-  >
-    <div>
-      {lang === "zh-TW" ? <a href={enUrl}> EN </a> : <a href={zhUrl}>中文</a>}
-    </div>
     {
       /*
     <nav>
@@ -45,7 +27,47 @@ const zhUrl = getRelativeLocaleUrl("zh-TW", rawPath);
     </nav>
     */
     }
-    <div class="pointer-events-none max-w-[min(280px,70vw)]"></div>
+    <a
+      href={lang === "zh-TW" ? enUrl : zhUrl}
+      class="flex h-(--header-height) w-16 flex-col items-center gap-1 pt-2"
+    >
+      <div
+        class="grid size-16 flex-none place-items-center bg-amber-200 text-5xl"
+      >
+        📚
+      </div>
+      <div class="text-sakura-900 text-md text-center font-semibold">
+        {lang === "zh-TW" ? "English" : "中文"}
+      </div>
+    </a>
+    <div
+      class="hidden h-(--header-height) w-16 flex-col items-center gap-1 pt-2 md:flex"
+    >
+      <div class="size-16 flex-none bg-amber-200"></div>
+      <div class="text-sakura-900 text-md text-center font-semibold">Label</div>
+    </div>
+    <div
+      class="sticky top-0 -mt-[calc(50svh-var(--header-height)-var(--header-margin)+0.5rem)] h-[calc(50svh-var(--header-margin)+0.5rem)]"
+    >
+      <div class="sticky top-0 h-(--header-height) flex-none">
+        <picture>
+          <source srcset="/images/type-logo-sakura@3x.avif" type="image/avif" />
+          <source srcset="/images/type-logo-sakura@3x.webp" type="image/webp" />
+          <img
+            src="/images/type-logo-sakura@3x.png"
+            alt="Taiyaki Sakura"
+            width="280"
+            class="max-w-[min(280px,70vw)] translate-x-2 -translate-y-2"
+          />
+        </picture>
+      </div>
+    </div>
+    <div
+      class="hidden h-(--header-height) w-16 flex-col items-center gap-1 pt-2 md:flex"
+    >
+      <div class="size-16 flex-none bg-amber-200"></div>
+      <div class="text-sakura-900 text-md text-center font-semibold">Label</div>
+    </div>
     <BgmPlayer />
   </div>
 </header>

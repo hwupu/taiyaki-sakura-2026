@@ -2,15 +2,26 @@
 
 ---
 
-<div id="bgm-player" class="flex items-center gap-2 px-3 py-2">
+<div
+  id="bgm-player"
+  class="flex h-(--header-height) w-16 flex-col items-center"
+>
   <audio id="bgm" loop preload="auto">
     <source src="/bgm/docchi.opus" type="audio/ogg; codecs=opus" />
   </audio>
   <button
     id="bgm-toggle"
     aria-label="Toggle music"
-    class="border-0 bg-transparent p-0 text-xl leading-none">🔊</button
+    class="flex w-16 flex-col items-center gap-1 border-0 bg-transparent p-0 pt-3"
   >
+    <div
+      id="bgm-icon"
+      class="grid size-16 flex-none place-items-center bg-amber-200 text-5xl"
+    >
+      🔊
+    </div>
+    <div class="text-sakura-900 text-md text-center font-semibold">BGM</div>
+  </button>
   <input
     id="bgm-volume"
     type="range"
@@ -19,7 +30,7 @@
     step="0.05"
     value="0.5"
     aria-label="Volume"
-    class="accent-sakura-400 hidden w-20 sm:block"
+    class="accent-sakura-400 hidden w-20"
   />
 </div>
 
@@ -27,20 +38,21 @@
   const audio = document.getElementById("bgm") as HTMLAudioElement;
   const toggle = document.getElementById("bgm-toggle") as HTMLButtonElement;
   const slider = document.getElementById("bgm-volume") as HTMLInputElement;
+  const icon = document.getElementById("bgm-icon") as HTMLInputElement;
 
   audio.volume = 0.5;
 
   function setIcon() {
     if (audio.muted || audio.volume === 0) {
-      toggle.textContent = "🔇";
+      icon.textContent = "🔇";
     } else {
-      toggle.textContent = "🔊";
+      icon.textContent = "🔊";
     }
   }
 
   // Autoplay — browsers may block it until first interaction
   audio.play().catch(() => {
-    toggle.textContent = "▶️";
+    icon.textContent = "▶️";
     document.addEventListener(
       "click",
       () => {

@@ -16,6 +16,6 @@ const { filename, alt, class: className } = Astro.props;
     src={`/images/${filename}.png`}
     alt={alt}
     width="640"
-    class={cn("rounded-xl w-160", className)}
+    class={cn("rounded-xl w-160 md:w-100 lg:w-120 xl:w-160", className)}
   />
 </picture>
