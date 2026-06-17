@@ -43,25 +43,6 @@ export default defineConfig({
     },
   },
 
-  security: {
-    csp: {
-      algorithm: "SHA-256",
-      scriptDirective: {
-        resources: ["'self'", "https://www.clarity.ms", "https://scripts.clarity.ms"],
-        strictDynamic: true,
-      },
-      directives: [
-        "default-src 'self'",
-        "connect-src 'self' https://*.clarity.ms https://dc.services.visualstudio.com",
-        "img-src 'self' data: https://*.clarity.ms",
-        "font-src 'self'",
-        "object-src 'none'",
-        "base-uri 'self'",
-        "form-action 'self'",
-        "frame-ancestors 'none'",
-      ],
-    },
-  },
 
   vite: {
     plugins: [tailwindcss()],
