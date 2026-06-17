@@ -5,6 +5,9 @@ import Header from "@/components/layout/LayoutHeader.astro";
 import Footer from "@/components/layout/LayoutFooter.astro";
 
 import HowTo from "@/components/howto/HowToEnV1.astro";
+import Rules from "@/components/rules/RulesEnV1.astro";
+import Welcome from "@/components/welcome/WelcomeEnV1.astro";
+import EditorNotes from "@/components/editor/EditorNotesEnV1.astro";
 ---
 
 <Barebone title="Taiyaki Sakura">
@@ -28,7 +31,10 @@ import HowTo from "@/components/howto/HowToEnV1.astro";
   <main
     class="bg-white-sakura text-sakura-900 mx-auto max-w-480 bg-white py-10"
   >
+    <Welcome />
+    <Rules />
     <HowTo />
+    <EditorNotes />
   </main>
 
   <Footer />

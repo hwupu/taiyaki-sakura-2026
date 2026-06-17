@@ -1,12 +1,17 @@
 ---
 import Barebone from "@/layouts/Barebone.astro";
+import Fab from "@/components/layout/LayoutFab.astro";
 import Header from "@/components/layout/LayoutHeader.astro";
 import Footer from "@/components/layout/LayoutFooter.astro";
 
+import Welcome from "@/components/welcome/WelcomeZhV1.astro";
+import Rules from "@/components/rules/RulesZhV1.astro";
 import HowTo from "@/components/howto/HowToZhV1.astro";
+import EditorNotes from "@/components/editor/EditorNotesZhV1.astro";
 ---
 
 <Barebone title="Taiyaki Sakura">
+  <Fab />
   <aside
     class="bg-sakura-50 pointer-events-none relative isolate z-15 mx-auto grid min-h-svh max-w-480 place-items-center pb-[calc(var(--header-height)+var(--header-margin)+0.5rem)]"
   >
@@ -26,7 +31,10 @@ import HowTo from "@/components/howto/HowToZhV1.astro";
   <main
     class="bg-white-sakura text-sakura-900 mx-auto max-w-480 bg-white py-10"
   >
+    <Welcome />
+    <Rules />
     <HowTo />
+    <EditorNotes />
   </main>
 
   <Footer />

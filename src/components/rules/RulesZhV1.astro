@@ -1,0 +1,25 @@
+<div class="bg-sakura-200 bg-pink-sakura px-10 py-20 text-white">
+  <section
+    class="text-sakura-900 container mx-auto flex max-w-3xl flex-col gap-5 rounded-xl bg-white p-10"
+  >
+    <h1 class="text-center text-2xl font-semibold md:text-3xl">櫻鯛燒公約</h1>
+    <ol class="mx-auto flex w-full max-w-3xl flex-col">
+      {
+        [
+          "玩得開心。",
+          "不要熬夜。",
+          "工作和課業並不存在。",
+          "貓咪、狗狗和羊駝都有基本權利。",
+          "在睡前記得為自己留下一些美好回憶。",
+        ].map((rule, i) => (
+          <li class="flex items-baseline gap-4 py-2">
+            <span class="text-sakura-200 w-8 shrink-0 text-right text-2xl font-bold tabular-nums">
+              {i + 1}
+            </span>
+            <span class="text-lg">{rule}</span>
+          </li>
+        ))
+      }
+    </ol>
+  </section>
+</div>

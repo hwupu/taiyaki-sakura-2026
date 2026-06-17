@@ -1,0 +1,27 @@
+<div class="bg-sakura-200 bg-pink-sakura px-10 py-20 text-white">
+  <section
+    class="text-sakura-900 container mx-auto flex max-w-3xl flex-col gap-5 rounded-xl bg-white p-10"
+  >
+    <h1 class="text-center text-2xl font-semibold md:text-3xl">
+      Promises of Taiyaki Sakura
+    </h1>
+    <ol class="mx-auto flex w-full max-w-3xl flex-col">
+      {
+        [
+          "Have fun.",
+          "No stay overnight.",
+          "Works and school vanish.",
+          "Cats, dogs, and llamas deserve basic rights.",
+          "Make some good memories before you go for sleep.",
+        ].map((rule, i) => (
+          <li class="flex items-baseline gap-4 py-2">
+            <span class="text-sakura-200 w-8 shrink-0 text-right text-2xl font-bold tabular-nums">
+              {i + 1}
+            </span>
+            <span class="text-lg">{rule}</span>
+          </li>
+        ))
+      }
+    </ol>
+  </section>
+</div>
