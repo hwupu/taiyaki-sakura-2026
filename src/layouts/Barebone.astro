@@ -7,24 +7,39 @@ import "@/styles/global.css";
 interface Props {
   title: string;
   description?: string;
+  /** Absolute URL or root-relative path to the OG preview image (1200×630px). */
+  image?: string;
   bodyClass?: string;
 }
 
-const { title, description, bodyClass } = Astro.props;
 const lang = Astro.currentLocale === "zh-TW" ? "zh-TW" : "en";
+
+const DEFAULT_DESCRIPTION = {
+  en: "A Minecraft world lovingly built by a few Computer Science and Design students. Create, make memories, and briefly escape reality. Inspired by Sakura Miko's streams.",
+  "zh-TW": "由幾位資工與設計系學生廢寢忘食打造的麥塊世界。在這裡盡情發揮創造力、建立回憶，並暫時逃離現實。名稱來自 vTuber 櫻巫女最喜歡的鯛魚燒。",
+}[lang];
+
+const { title, description = DEFAULT_DESCRIPTION, image = "/og-image.png", bodyClass } = Astro.props;
 
 const rawPath = Astro.url.pathname.startsWith("/zh")
   ? Astro.url.pathname.slice(3) || "/"
   : Astro.url.pathname;
 const enUrl = getRelativeLocaleUrl("en", rawPath);
 const zhUrl = getRelativeLocaleUrl("zh-TW", rawPath);
+
+const canonicalUrl = Astro.url.href;
+const ogLocale = lang === "zh-TW" ? "zh_TW" : "en_US";
+const ogLocaleAlt = lang === "zh-TW" ? "en_US" : "zh_TW";
+// Resolve image to absolute URL; supports both root-relative (/foo.png) and full URLs.
+const ogImage = image.startsWith("http") ? image : new URL(image, Astro.site ?? Astro.url).href;
+
 ---
 
 <html lang={lang}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    {description && <meta name="description" content={description} />}
+    <meta name="description" content={description} />
     <title>{title}</title>
 
     <!-- Favicons -->
@@ -42,6 +57,22 @@ const zhUrl = getRelativeLocaleUrl("zh-TW", rawPath);
     <!-- Alternate language links for SEO -->
     <link rel="alternate" hreflang="en" href={enUrl} />
     <link rel="alternate" hreflang="zh-TW" href={zhUrl} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:locale" content={ogLocale} />
+    <meta property="og:locale:alternate" content={ogLocaleAlt} />
+    <meta property="og:site_name" content="Taiyaki Sakura" />
+
+    <!-- Twitter / X Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
   </head>
   <body class={cn("bg-pink-sakura", bodyClass)}>
     <slot />
