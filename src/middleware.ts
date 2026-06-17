@@ -15,7 +15,7 @@ function buildCSP(nonce: string): string {
     // unsafe-inline needed for inline style= attributes set by Clarity at runtime
     "style-src 'self' 'unsafe-inline'",
     "connect-src 'self' https://*.clarity.ms https://dc.services.visualstudio.com",
-    "img-src 'self' data: https://*.clarity.ms",
+    "img-src 'self' data: https://*.clarity.ms https://cdn.phwu.work",
     "font-src 'self'",
     "media-src 'self'",
     "worker-src 'self'",

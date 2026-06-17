@@ -1,0 +1,171 @@
+---
+export interface GalleryImage {
+  /** Base path without extension — component appends .avif / .webp / .png. */
+  src: string;
+  alt: string;
+  caption?: string;
+}
+
+interface Props {
+  images: GalleryImage[];
+  /**
+   * "grid" — responsive multi-column grid (default).
+   * "strip" — single scrollable row, snaps to each image.
+   */
+  layout?: "grid" | "strip";
+  /** Number of columns for grid layout (responsive: always 2 on mobile). */
+  columns?: 2 | 3 | 4;
+  /** Unique ID — required when multiple galleries appear on the same page. */
+  id?: string;
+}
+
+const { images, layout = "grid", columns = 3, id = "gallery" } = Astro.props;
+const colClass =
+  columns === 2 ? "grid-cols-2" :
+  columns === 4 ? "grid-cols-2 sm:grid-cols-4" :
+  "grid-cols-2 sm:grid-cols-3";
+
+const containerClass = layout === "strip"
+  ? "flex gap-2 overflow-x-auto snap-x snap-mandatory pb-1 [scrollbar-width:thin]"
+  : `grid gap-2 ${colClass}`;
+
+const thumbClass = layout === "strip"
+  ? "group shrink-0 h-40 sm:h-52 aspect-square overflow-hidden rounded-lg cursor-pointer snap-start focus-visible:outline-2 focus-visible:outline-sakura-400 focus-visible:ring-4 focus-visible:ring-white"
+  : "group aspect-square overflow-hidden rounded-lg cursor-pointer focus-visible:outline-2 focus-visible:outline-sakura-400 focus-visible:ring-4 focus-visible:ring-white";
+---
+
+<!-- Thumbnail grid / strip -->
+<div
+  class={containerClass}
+  data-gallery={id}
+  data-images={JSON.stringify(images)}
+>
+  {images.map((img, i) => (
+    <button
+      class={thumbClass}
+      data-index={i}
+      aria-label={`View: ${img.alt}`}
+    >
+      <picture>
+        <source srcset={`${img.src}.avif`} type="image/avif" />
+        <source srcset={`${img.src}.webp`} type="image/webp" />
+        <img
+          src={`${img.src}.png`}
+          alt={img.alt}
+          loading="lazy"
+          class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+        />
+      </picture>
+    </button>
+  ))}
+</div>
+
+<!-- Lightbox modal -->
+<dialog
+  id={`${id}-modal`}
+  class="m-0 p-0 border-0 bg-black/85 max-w-none max-h-none w-screen h-dvh overflow-hidden backdrop:hidden"
+>
+  <!-- Dark area: clicking directly on this closes the modal -->
+  <div
+    class="relative flex items-center justify-center w-full h-full"
+    data-modal-bg
+  >
+    <!-- Close -->
+    <button
+      id={`${id}-close`}
+      class="absolute top-4 right-5 text-white/60 hover:text-white text-4xl leading-none z-10 transition-colors"
+      aria-label="Close gallery"
+    >&times;</button>
+
+    <!-- Prev -->
+    <button
+      id={`${id}-prev`}
+      class="absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 text-white/60 hover:text-sakura-200 text-6xl leading-none select-none z-10 transition-colors"
+      aria-label="Previous image"
+    >&#8249;</button>
+
+    <!-- Image + caption (clicking here does NOT close) -->
+    <figure class="flex flex-col items-center gap-3 px-16 max-w-full" data-modal-content>
+      <picture>
+        <source id={`${id}-src-avif`} srcset="" type="image/avif" />
+        <source id={`${id}-src-webp`} srcset="" type="image/webp" />
+        <img
+          id={`${id}-img`}
+          src=""
+          alt=""
+          class="max-h-[82vh] max-w-[85vw] rounded-lg object-contain shadow-2xl"
+        />
+      </picture>
+      <figcaption
+        id={`${id}-caption`}
+        class="text-white/60 text-sm text-center"
+      ></figcaption>
+    </figure>
+
+    <!-- Next -->
+    <button
+      id={`${id}-next`}
+      class="absolute right-3 sm:right-6 top-1/2 -translate-y-1/2 text-white/60 hover:text-sakura-200 text-6xl leading-none select-none z-10 transition-colors"
+      aria-label="Next image"
+    >&#8250;</button>
+  </div>
+</dialog>
+
+<script>
+  document.querySelectorAll<HTMLElement>("[data-gallery]").forEach((grid) => {
+    const id = grid.dataset.gallery!;
+    const images = JSON.parse(grid.dataset.images!) as Array<{
+      src: string;
+      alt: string;
+      caption?: string;
+    }>;
+
+    const modal = document.getElementById(`${id}-modal`) as HTMLDialogElement;
+    const avifSrc = document.getElementById(`${id}-src-avif`) as HTMLSourceElement;
+    const webpSrc = document.getElementById(`${id}-src-webp`) as HTMLSourceElement;
+    const imgEl = document.getElementById(`${id}-img`) as HTMLImageElement;
+    const captionEl = document.getElementById(`${id}-caption`)!;
+    const closeBtn = document.getElementById(`${id}-close`)!;
+    const prevBtn = document.getElementById(`${id}-prev`)!;
+    const nextBtn = document.getElementById(`${id}-next`)!;
+    const bg = modal.querySelector("[data-modal-bg]") as HTMLElement;
+
+    let current = 0;
+
+    const show = (i: number) => {
+      current = ((i % images.length) + images.length) % images.length;
+      const base = images[current].src;
+      avifSrc.srcset = `${base}.avif`;
+      webpSrc.srcset = `${base}.webp`;
+      imgEl.src = `${base}.png`;
+      imgEl.alt = images[current].alt;
+      captionEl.textContent = images[current].caption ?? "";
+    };
+
+    const open = (i: number) => {
+      show(i);
+      modal.showModal();
+      closeBtn.focus();
+    };
+
+    // Thumbnail clicks
+    grid.querySelectorAll<HTMLElement>("[data-index]").forEach((btn) => {
+      btn.addEventListener("click", () => open(Number(btn.dataset.index)));
+    });
+
+    closeBtn.addEventListener("click", () => modal.close());
+    prevBtn.addEventListener("click", () => show(current - 1));
+    nextBtn.addEventListener("click", () => show(current + 1));
+
+    // Click dark background to close (not children)
+    bg.addEventListener("click", (e) => {
+      if (e.target === bg) modal.close();
+    });
+
+    // Keyboard navigation
+    modal.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowLeft") show(current - 1);
+      if (e.key === "ArrowRight") show(current + 1);
+    });
+  });
+</script>

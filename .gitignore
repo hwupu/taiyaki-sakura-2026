@@ -28,3 +28,6 @@ pnpm-debug.log*
 
 # Generated optimized images (produced by scripts/optimize-images.mjs)
 public/images/
+
+# Source images for gallery — optimize locally, serve from cdn.phwu.work
+src/images/gallery/
