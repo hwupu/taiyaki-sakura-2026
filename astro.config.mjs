@@ -48,9 +48,10 @@ export default defineConfig({
       algorithm: "SHA-256",
       directives: [
         "default-src 'self'",
-        "img-src 'self' data:",
+        "script-src 'self' https://www.clarity.ms",
+        "connect-src 'self' https://www.clarity.ms https://dc.services.visualstudio.com",
+        "img-src 'self' data: https://www.clarity.ms",
         "font-src 'self'",
-        "connect-src 'self'",
         "object-src 'none'",
         "base-uri 'self'",
         "form-action 'self'",
