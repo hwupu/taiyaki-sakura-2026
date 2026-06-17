@@ -16,10 +16,16 @@ const lang = Astro.currentLocale === "zh-TW" ? "zh-TW" : "en";
 
 const DEFAULT_DESCRIPTION = {
   en: "A Minecraft world lovingly built by a few Computer Science and Design students. Create, make memories, and briefly escape reality. Inspired by Sakura Miko's streams.",
-  "zh-TW": "由幾位資工與設計系學生廢寢忘食打造的麥塊世界。在這裡盡情發揮創造力、建立回憶，並暫時逃離現實。名稱來自 vTuber 櫻巫女最喜歡的鯛魚燒。",
+  "zh-TW":
+    "由幾位資工與設計系學生廢寢忘食打造的麥塊世界。在這裡盡情發揮創造力、建立回憶，並暫時逃離現實。名稱來自 vTuber 櫻巫女最喜歡的鯛魚燒。",
 }[lang];
 
-const { title, description = DEFAULT_DESCRIPTION, image = "/og-image.png", bodyClass } = Astro.props;
+const {
+  title,
+  description = DEFAULT_DESCRIPTION,
+  image = "/og-image.png",
+  bodyClass,
+} = Astro.props;
 
 const rawPath = Astro.url.pathname.startsWith("/zh")
   ? Astro.url.pathname.slice(3) || "/"
@@ -31,8 +37,9 @@ const canonicalUrl = Astro.url.href;
 const ogLocale = lang === "zh-TW" ? "zh_TW" : "en_US";
 const ogLocaleAlt = lang === "zh-TW" ? "en_US" : "zh_TW";
 // Resolve image to absolute URL; supports both root-relative (/foo.png) and full URLs.
-const ogImage = image.startsWith("http") ? image : new URL(image, Astro.site ?? Astro.url).href;
-
+const ogImage = image.startsWith("http")
+  ? image
+  : new URL(image, Astro.site ?? Astro.url).href;
 ---
 
 <html lang={lang}>
@@ -75,7 +82,20 @@ const ogImage = image.startsWith("http") ? image : new URL(image, Astro.site ?? 
     <meta name="twitter:image" content={ogImage} />
 
     <!-- Microsoft Clarity -->
-    <script is:inline src="/clarity-init.js" nonce={Astro.locals.cspNonce}></script>
+    <script is:inline>
+      (function (c, l, a, r, i, t, y) {
+        c[a] =
+          c[a] ||
+          function () {
+            (c[a].q = c[a].q || []).push(arguments);
+          };
+        t = l.createElement(r);
+        t.async = 1;
+        t.src = "https://www.clarity.ms/tag/" + i;
+        y = l.getElementsByTagName(r)[0];
+        y.parentNode.insertBefore(t, y);
+      })(window, document, "clarity", "script", "x8hsoy2hcd");
+    </script>
   </head>
   <body class={cn("bg-pink-sakura", bodyClass)}>
     <slot />
