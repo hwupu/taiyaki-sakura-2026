@@ -8,12 +8,12 @@ function generateNonce(): string {
 
 function buildCSP(nonce: string): string {
   return [
-    "default-src 'none'",
+    "default-src 'self'",
     // nonce covers all script tags (injected below); strict-dynamic trusts scripts
     // Clarity loads dynamically; unsafe-inline is ignored by nonce-aware browsers
     `script-src 'self' 'nonce-${nonce}' 'strict-dynamic' 'unsafe-inline'`,
     // unsafe-inline needed for inline style= attributes set by Clarity at runtime
-    "style-src 'self'",
+    "style-src 'self' 'unsafe-inline'",
     "connect-src 'self' https://*.clarity.ms https://dc.services.visualstudio.com",
     "img-src 'self' data: https://*.clarity.ms",
     "font-src 'self'",
