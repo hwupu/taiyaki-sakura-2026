@@ -2,6 +2,8 @@
 import { getRelativeLocaleUrl } from "astro:i18n";
 
 import BgmPlayer from "@/components/BgmPlayer.astro";
+import iconGlobus from "@/icons/solar/solar--globus-bold.svg?raw";
+import iconArrowDown from "@/icons/solar/solar--arrow-down-linear.svg?raw";
 
 const lang = Astro.currentLocale === "zh-TW" ? "zh-TW" : "en";
 
@@ -18,36 +20,20 @@ const zhUrl = getRelativeLocaleUrl("zh-TW", rawPath);
   <div
     class="sticky top-2 flex h-(--header-height) justify-center md:mx-auto md:w-fit md:max-w-480 md:gap-10 md:rounded-xl md:bg-white/50 md:px-10 md:shadow md:backdrop-blur-sm"
   >
-    {
-      /*
-    <nav>
-      <a href={getRelativeLocaleUrl(lang, "/")}>
-        {lang === "zh-TW" ? "首頁" : "Home"}
-      </a>
-    </nav>
-    */
-    }
     <a
       href={lang === "zh-TW" ? enUrl : zhUrl}
-      class="flex h-(--header-height) w-16 flex-col items-center gap-1 pt-2"
+      class="text-sakura-900 hover:text-sakura-400 hidden h-(--header-height) w-16 flex-col items-center pt-2 md:flex"
     >
-      <div
-        class="grid size-16 flex-none place-items-center bg-amber-200 text-5xl"
-      >
-        📚
+      <div class="grid size-16 flex-none place-items-center text-5xl">
+        <span class="block size-14" set:html={iconGlobus} />
       </div>
-      <div class="text-sakura-900 text-md text-center font-semibold">
+      <div class="text-md text-center font-semibold">
         {lang === "zh-TW" ? "English" : "中文"}
       </div>
     </a>
     <div
-      class="hidden h-(--header-height) w-16 flex-col items-center gap-1 pt-2 md:flex"
-    >
-      <div class="size-16 flex-none bg-amber-200"></div>
-      <div class="text-sakura-900 text-md text-center font-semibold">Label</div>
-    </div>
-    <div
-      class="sticky top-0 -mt-[calc(50svh-var(--header-height)-var(--header-margin)+0.5rem)] h-[calc(50svh-var(--header-margin)+0.5rem)]"
+      class="pointer-events-none sticky top-0 -mt-[calc(50svh-var(--header-height)-var(--header-margin)+0.5rem)] h-[calc(50svh-var(--header-margin)+0.5rem)]"
+      aria-hidden="true"
     >
       <div class="sticky top-0 h-(--header-height) flex-none">
         <picture>
@@ -57,16 +43,18 @@ const zhUrl = getRelativeLocaleUrl("zh-TW", rawPath);
             src="/images/type-logo-sakura@3x.png"
             alt="Taiyaki Sakura"
             width="280"
-            class="max-w-[min(280px,70vw)] translate-x-2 -translate-y-2"
+            class="pointer-events-none max-w-[min(280px,70vw)] translate-x-2 -translate-y-2"
           />
         </picture>
       </div>
-    </div>
-    <div
-      class="hidden h-(--header-height) w-16 flex-col items-center gap-1 pt-2 md:flex"
-    >
-      <div class="size-16 flex-none bg-amber-200"></div>
-      <div class="text-sakura-900 text-md text-center font-semibold">Label</div>
+      <div
+        class="pointer-event-none absolute inset-x-0 bottom-0 -z-10 grid h-(--header-height) items-end justify-center p-2"
+      >
+        <span
+          class="text-sakura-200 md:text-sakura-100 block size-12 animate-bounce"
+          set:html={iconArrowDown}
+        />
+      </div>
     </div>
     <BgmPlayer />
   </div>

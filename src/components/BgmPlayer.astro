@@ -1,80 +1,86 @@
 ---
-
+import iconLoud from "@/icons/solar/solar--volume-loud-bold.svg?raw";
+import iconMuted from "@/icons/solar/solar--muted-bold.svg?raw";
 ---
 
+<!--
+  SVG strings are stashed in data attributes so the TypeScript <script> module
+  can read them without needing define:vars (which disables TS).
+  Any element with [data-bgm-btn] triggers toggle; [data-bgm-icon] and
+  [data-bgm-label] are synced across both this header button and the FAB.
+-->
 <div
   id="bgm-player"
-  class="flex h-(--header-height) w-16 flex-col items-center"
+  data-icon-loud={iconLoud}
+  data-icon-muted={iconMuted}
+  class="hidden h-(--header-height) w-16 flex-col items-center md:flex"
 >
   <audio id="bgm" loop preload="auto">
     <source src="/bgm/docchi.opus" type="audio/ogg; codecs=opus" />
   </audio>
   <button
-    id="bgm-toggle"
-    aria-label="Toggle music"
-    class="flex w-16 flex-col items-center gap-1 border-0 bg-transparent p-0 pt-3"
+    data-bgm-btn
+    aria-label="Toggle background music"
+    aria-pressed="false"
+    class="text-sakura-900 hover:text-sakura-400 flex w-16 flex-col items-center border-0 bg-transparent p-0 pt-1"
   >
-    <div
-      id="bgm-icon"
-      class="grid size-16 flex-none place-items-center bg-amber-200 text-5xl"
-    >
-      🔊
-    </div>
-    <div class="text-sakura-900 text-md text-center font-semibold">BGM</div>
+    <span
+      data-bgm-icon
+      class="grid size-16 flex-none place-items-center text-5xl"
+      set:html={iconMuted}
+    />
+    <span class="text-md text-center font-semibold">BGM</span>
   </button>
-  <input
-    id="bgm-volume"
-    type="range"
-    min="0"
-    max="1"
-    step="0.05"
-    value="0.5"
-    aria-label="Volume"
-    class="accent-sakura-400 hidden w-20"
-  />
 </div>
 
 <script>
+  const player = document.getElementById("bgm-player") as HTMLElement;
   const audio = document.getElementById("bgm") as HTMLAudioElement;
-  const toggle = document.getElementById("bgm-toggle") as HTMLButtonElement;
-  const slider = document.getElementById("bgm-volume") as HTMLInputElement;
-  const icon = document.getElementById("bgm-icon") as HTMLInputElement;
+  const iconLoud = player.dataset.iconLoud!;
+  const iconMuted = player.dataset.iconMuted!;
 
   audio.volume = 0.5;
 
-  function setIcon() {
-    if (audio.muted || audio.volume === 0) {
-      icon.textContent = "🔇";
+  function isAudible(): boolean {
+    return !audio.paused && !audio.muted && audio.volume > 0;
+  }
+
+  function syncAll(): void {
+    const audible = isAudible();
+    document.querySelectorAll<HTMLElement>("[data-bgm-icon]").forEach((el) => {
+      el.innerHTML = audible ? iconLoud : iconMuted;
+    });
+    document.querySelectorAll<HTMLElement>("[data-bgm-btn]").forEach((btn) => {
+      btn.setAttribute("aria-pressed", String(audible));
+    });
+    document.querySelectorAll<HTMLElement>("[data-bgm-label]").forEach((el) => {
+      el.textContent = audible
+        ? (el.dataset.labelOn ?? "")
+        : (el.dataset.labelOff ?? "");
+    });
+  }
+
+  function toggle(): void {
+    if (audio.paused) {
+      audio.play().then(syncAll);
     } else {
-      icon.textContent = "🔊";
+      audio.muted = !audio.muted;
+      syncAll();
     }
   }
 
-  // Autoplay — browsers may block it until first interaction
-  audio.play().catch(() => {
-    icon.textContent = "▶️";
-    document.addEventListener(
-      "click",
-      () => {
-        audio.play().then(setIcon);
-      },
-      { once: true },
-    );
+  // Single delegated listener — catches [data-bgm-btn] in both header and FAB
+  document.addEventListener("click", (e) => {
+    if ((e.target as Element).closest("[data-bgm-btn]")) toggle();
   });
 
-  toggle.addEventListener("click", (e) => {
-    e.stopPropagation();
-    if (audio.paused) {
-      audio.play().then(setIcon);
-    } else {
-      audio.muted = !audio.muted;
-      setIcon();
-    }
-  });
-
-  slider.addEventListener("input", () => {
-    audio.volume = parseFloat(slider.value);
-    if (audio.muted && audio.volume > 0) audio.muted = false;
-    setIcon();
-  });
+  audio
+    .play()
+    .then(syncAll)
+    .catch(() => {
+      syncAll(); // show muted state while autoplay is blocked
+      document.addEventListener("click", () => audio.play().then(syncAll), {
+        once: true,
+      });
+    });
 </script>

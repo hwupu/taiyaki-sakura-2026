@@ -1,0 +1,106 @@
+---
+import { getRelativeLocaleUrl } from "astro:i18n";
+import iconHamburger from "@/icons/solar/solar--hamburger-menu-linear.svg?raw";
+import iconArrowUp from "@/icons/solar/solar--arrow-up-linear.svg?raw";
+import iconMuted from "@/icons/solar/solar--muted-bold.svg?raw";
+import iconGlobus from "@/icons/solar/solar--globus-bold.svg?raw";
+
+const lang = Astro.currentLocale === "zh-TW" ? "zh-TW" : "en";
+
+const rawPath = Astro.url.pathname.startsWith("/zh")
+  ? Astro.url.pathname.slice(3) || "/"
+  : Astro.url.pathname;
+const enUrl = getRelativeLocaleUrl("en", rawPath);
+const zhUrl = getRelativeLocaleUrl("zh-TW", rawPath);
+
+const t = {
+  en: {
+    close: "Close",
+    bgmOn: "Mute BGM",
+    bgmOff: "Play BGM",
+    language: "中文",
+    scrollTop: "Scroll to Top",
+  },
+  "zh-TW": {
+    close: "關閉",
+    bgmOn: "靜音 BGM",
+    bgmOff: "播放 BGM",
+    language: "English",
+    scrollTop: "回到頂端",
+  },
+}[lang];
+---
+
+<div
+  class="fab text-sakura-900 bottom-(--header-margin) z-21 gap-4 text-xl sm:hidden"
+>
+  <!-- Hamburger / open trigger -->
+  <div
+    tabindex="0"
+    role="button"
+    class="btn btn-xl btn-circle text-sakura-400 shadow-sakura-400/50 bg-white shadow"
+  >
+    <span class="block size-10" set:html={iconHamburger} />
+  </div>
+
+  <!-- Close button — not focusable; visual only -->
+  <div class="fab-close">
+    <span class="shadow-sakura-400/50 rounded-full bg-white px-3 py-1 shadow"
+      >{t.close}</span
+    >
+    <span
+      class="btn btn-xl btn-circle shadow-sakura-400/50 bg-sakura-400 text-white shadow"
+      >✕</span
+    >
+  </div>
+
+  <!-- BGM toggle — icon and label synced by BgmPlayer script via data-bgm-* -->
+  <div>
+    <span
+      data-bgm-label
+      data-label-on={t.bgmOn}
+      data-label-off={t.bgmOff}
+      class="shadow-sakura-400/50 rounded-full bg-white px-3 py-1 shadow"
+      >{t.bgmOff}</span
+    >
+    <button
+      data-bgm-btn
+      class="btn btn-xl btn-circle text-sakura-400 shadow-sakura-400/50 bg-white shadow"
+    >
+      <span data-bgm-icon class="block size-10" set:html={iconMuted} />
+    </button>
+  </div>
+
+  <!-- Language switcher -->
+  <div>
+    <span class="shadow-sakura-400/50 rounded-full bg-white px-3 py-1 shadow"
+      >{t.language}</span
+    >
+    <a
+      href={lang === "zh-TW" ? enUrl : zhUrl}
+      class="no-outline btn btn-xl btn-circle text-sakura-400 shadow-sakura-400/50 bg-white shadow"
+      aria-label={lang === "zh-TW" ? "English" : "中文"}
+    >
+      <span class="block size-10" set:html={iconGlobus} />
+    </a>
+  </div>
+
+  <!-- Scroll to top -->
+  <div>
+    <span class="shadow-sakura-400/50 rounded-full bg-white px-3 py-1 shadow"
+      >{t.scrollTop}</span
+    >
+    <button
+      id="fab-scroll-top"
+      class="btn btn-xl btn-circle text-sakura-400 shadow-sakura-400/50 bg-white shadow"
+    >
+      <span class="block size-10" set:html={iconArrowUp} />
+    </button>
+  </div>
+</div>
+
+<script>
+  document.getElementById("fab-scroll-top")?.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+</script>

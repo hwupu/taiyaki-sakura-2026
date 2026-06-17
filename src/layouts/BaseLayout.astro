@@ -1,5 +1,6 @@
 ---
 import Barebone from "@/layouts/Barebone.astro";
+import Fab from "@/components/layout/LayoutFab.astro";
 import Header from "@/components/layout/LayoutHeader.astro";
 import Footer from "@/components/layout/LayoutFooter.astro";
 
@@ -11,6 +12,7 @@ interface Props {
 ---
 
 <Barebone {...Astro.props}>
+  <Fab />
   <Header />
 
   <main
