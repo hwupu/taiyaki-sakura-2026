@@ -75,7 +75,7 @@ const ogImage = image.startsWith("http") ? image : new URL(image, Astro.site ?? 
     <meta name="twitter:image" content={ogImage} />
 
     <!-- Microsoft Clarity -->
-    <script src="/clarity-init.js"></script>
+    <script is:inline src="/clarity-init.js"></script>
   </head>
   <body class={cn("bg-pink-sakura", bodyClass)}>
     <slot />
