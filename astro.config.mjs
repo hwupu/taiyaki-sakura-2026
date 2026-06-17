@@ -47,7 +47,8 @@ export default defineConfig({
     csp: {
       algorithm: "SHA-256",
       scriptDirective: {
-        resources: ["'self'", "https://www.clarity.ms"],
+        resources: ["'self'", "https://www.clarity.ms", "https://scripts.clarity.ms"],
+        strictDynamic: true,
       },
       directives: [
         "default-src 'self'",
