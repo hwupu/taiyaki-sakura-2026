@@ -20,72 +20,79 @@ interface Props {
 }
 
 const { images, layout = "grid", columns = 3, id = "gallery" } = Astro.props;
-const colClass =
-  columns === 2 ? "grid-cols-2" :
-  columns === 4 ? "grid-cols-2 sm:grid-cols-4" :
-  "grid-cols-2 sm:grid-cols-3";
+// auto-fill minmax: columns reflow fluidly — no breakpoints needed.
+const minWidth = columns === 2 ? "200px" : columns === 4 ? "110px" : "150px";
 
-const containerClass = layout === "strip"
-  ? "flex gap-2 overflow-x-auto snap-x snap-mandatory pb-1 [scrollbar-width:thin]"
-  : `grid gap-2 ${colClass}`;
+const containerClass =
+  layout === "strip"
+    ? "flex gap-2 overflow-x-auto snap-x snap-mandatory pb-1 [scrollbar-width:thin] overscroll-auto"
+    : "grid gap-2";
 
-const thumbClass = layout === "strip"
-  ? "group shrink-0 h-40 sm:h-52 aspect-square overflow-hidden rounded-lg cursor-pointer snap-start focus-visible:outline-2 focus-visible:outline-sakura-400 focus-visible:ring-4 focus-visible:ring-white"
-  : "group aspect-square overflow-hidden rounded-lg cursor-pointer focus-visible:outline-2 focus-visible:outline-sakura-400 focus-visible:ring-4 focus-visible:ring-white";
+const containerStyle =
+  layout === "grid"
+    ? `grid-template-columns: repeat(auto-fill, minmax(${minWidth}, 1fr))`
+    : undefined;
+
+const thumbClass =
+  layout === "strip"
+    ? "group shrink-0 h-40 sm:h-52 aspect-square overflow-hidden rounded-lg cursor-pointer snap-start focus-visible:outline-2 focus-visible:outline-sakura-400 focus-visible:ring-4 focus-visible:ring-white"
+    : "group aspect-square overflow-hidden rounded-lg cursor-pointer focus-visible:outline-2 focus-visible:outline-sakura-400 focus-visible:ring-4 focus-visible:ring-white";
 ---
 
 <!-- Thumbnail grid / strip -->
 <div
   class={containerClass}
+  style={containerStyle}
   data-gallery={id}
   data-images={JSON.stringify(images)}
 >
-  {images.map((img, i) => (
-    <button
-      class={thumbClass}
-      data-index={i}
-      aria-label={`View: ${img.alt}`}
-    >
-      <picture>
-        <source srcset={`${img.src}.avif`} type="image/avif" />
-        <source srcset={`${img.src}.webp`} type="image/webp" />
-        <img
-          src={`${img.src}.png`}
-          alt={img.alt}
-          loading="lazy"
-          class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
-        />
-      </picture>
-    </button>
-  ))}
+  {
+    images.map((img, i) => (
+      <button class={thumbClass} data-index={i} aria-label={`View: ${img.alt}`}>
+        <picture>
+          <source srcset={`${img.src}.avif`} type="image/avif" />
+          <source srcset={`${img.src}.webp`} type="image/webp" />
+          <img
+            src={`${img.src}.png`}
+            alt={img.alt}
+            loading="lazy"
+            class="h-full w-full rounded-lg object-cover transition-transform duration-300 group-hover:scale-105"
+          />
+        </picture>
+      </button>
+    ))
+  }
 </div>
 
 <!-- Lightbox modal -->
 <dialog
   id={`${id}-modal`}
-  class="m-0 p-0 border-0 bg-black/85 max-w-none max-h-none w-screen h-dvh overflow-hidden backdrop:hidden"
+  class="m-0 h-dvh max-h-none w-screen max-w-none overflow-hidden border-0 bg-black/85 p-0 backdrop:hidden"
 >
   <!-- Dark area: clicking directly on this closes the modal -->
   <div
-    class="relative flex items-center justify-center w-full h-full"
+    class="relative flex h-full w-full items-center justify-center"
     data-modal-bg
   >
     <!-- Close -->
     <button
       id={`${id}-close`}
-      class="absolute top-4 right-5 text-white/60 hover:text-white text-4xl leading-none z-10 transition-colors"
-      aria-label="Close gallery"
-    >&times;</button>
+      class="absolute top-4 right-5 z-10 text-4xl leading-none text-white/60 transition-colors hover:text-white"
+      aria-label="Close gallery">&times;</button
+    >
 
     <!-- Prev -->
     <button
       id={`${id}-prev`}
-      class="absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 text-white/60 hover:text-sakura-200 text-6xl leading-none select-none z-10 transition-colors"
-      aria-label="Previous image"
-    >&#8249;</button>
+      class="hover:text-sakura-200 absolute top-1/2 left-3 z-10 -translate-y-1/2 text-6xl leading-none text-white/60 transition-colors select-none sm:left-6"
+      aria-label="Previous image">&#8249;</button
+    >
 
     <!-- Image + caption (clicking here does NOT close) -->
-    <figure class="flex flex-col items-center gap-3 px-16 max-w-full" data-modal-content>
+    <figure
+      class="flex max-w-full flex-col items-center gap-3 px-16"
+      data-modal-content
+    >
       <picture>
         <source id={`${id}-src-avif`} srcset="" type="image/avif" />
         <source id={`${id}-src-webp`} srcset="" type="image/webp" />
@@ -98,16 +105,17 @@ const thumbClass = layout === "strip"
       </picture>
       <figcaption
         id={`${id}-caption`}
-        class="text-white/60 text-sm text-center"
-      ></figcaption>
+        class="text-center text-sm text-white/60"
+      >
+      </figcaption>
     </figure>
 
     <!-- Next -->
     <button
       id={`${id}-next`}
-      class="absolute right-3 sm:right-6 top-1/2 -translate-y-1/2 text-white/60 hover:text-sakura-200 text-6xl leading-none select-none z-10 transition-colors"
-      aria-label="Next image"
-    >&#8250;</button>
+      class="hover:text-sakura-200 absolute top-1/2 right-3 z-10 -translate-y-1/2 text-6xl leading-none text-white/60 transition-colors select-none sm:right-6"
+      aria-label="Next image">&#8250;</button
+    >
   </div>
 </dialog>
 
@@ -121,8 +129,12 @@ const thumbClass = layout === "strip"
     }>;
 
     const modal = document.getElementById(`${id}-modal`) as HTMLDialogElement;
-    const avifSrc = document.getElementById(`${id}-src-avif`) as HTMLSourceElement;
-    const webpSrc = document.getElementById(`${id}-src-webp`) as HTMLSourceElement;
+    const avifSrc = document.getElementById(
+      `${id}-src-avif`,
+    ) as HTMLSourceElement;
+    const webpSrc = document.getElementById(
+      `${id}-src-webp`,
+    ) as HTMLSourceElement;
     const imgEl = document.getElementById(`${id}-img`) as HTMLImageElement;
     const captionEl = document.getElementById(`${id}-caption`)!;
     const closeBtn = document.getElementById(`${id}-close`)!;

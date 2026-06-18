@@ -4,6 +4,8 @@ import iconHamburger from "@/icons/solar/solar--hamburger-menu-linear.svg?raw";
 import iconArrowUp from "@/icons/solar/solar--arrow-up-linear.svg?raw";
 import iconMuted from "@/icons/solar/solar--muted-bold.svg?raw";
 import iconGlobus from "@/icons/solar/solar--globus-bold.svg?raw";
+import iconCamera from "@/icons/solar/solar--camera-bold.svg?raw";
+import iconTaiyaki from "@/icons/icon-taiyaki.svg?raw";
 
 const lang = Astro.currentLocale === "zh-TW" ? "zh-TW" : "en";
 
@@ -19,6 +21,8 @@ const t = {
     bgmOn: "Mute BGM",
     bgmOff: "Play BGM",
     language: "中文",
+    home: "Home",
+    gallery: "Memories",
     scrollTop: "Scroll to Top",
   },
   "zh-TW": {
@@ -26,6 +30,8 @@ const t = {
     bgmOn: "靜音 BGM",
     bgmOff: "播放 BGM",
     language: "English",
+    home: "首頁",
+    gallery: "回憶",
     scrollTop: "回到頂端",
   },
 }[lang];
@@ -69,6 +75,34 @@ const t = {
     >
       <span data-bgm-icon class="block size-10" set:html={iconMuted} />
     </button>
+  </div>
+
+  <!-- Gallery -->
+  <div>
+    <span class="shadow-sakura-400/50 rounded-full bg-white px-3 py-1 shadow"
+      >{t.gallery}</span
+    >
+    <a
+      href={getRelativeLocaleUrl(lang, "/gallery")}
+      class="no-outline btn btn-xl btn-circle text-sakura-400 shadow-sakura-400/50 bg-white shadow"
+      aria-label={t.gallery}
+    >
+      <span class="block size-10" set:html={iconCamera} />
+    </a>
+  </div>
+
+  <!-- Home -->
+  <div>
+    <span class="shadow-sakura-400/50 rounded-full bg-white px-3 py-1 shadow"
+      >{t.home}</span
+    >
+    <a
+      href={getRelativeLocaleUrl(lang, "/")}
+      class="no-outline btn btn-xl btn-circle text-sakura-400 shadow-sakura-400/50 bg-white shadow"
+      aria-label={t.home}
+    >
+      <span class="block size-10" set:html={iconTaiyaki} />
+    </a>
   </div>
 
   <!-- Language switcher -->

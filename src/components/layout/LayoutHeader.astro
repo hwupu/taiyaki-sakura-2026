@@ -3,6 +3,8 @@ import { getRelativeLocaleUrl } from "astro:i18n";
 
 import BgmPlayer from "@/components/BgmPlayer.astro";
 import iconGlobus from "@/icons/solar/solar--globus-bold.svg?raw";
+import iconCamera from "@/icons/solar/solar--camera-bold.svg?raw";
+import iconTaiyaki from "@/icons/icon-taiyaki.svg?raw";
 import iconArrowDown from "@/icons/solar/solar--arrow-down-linear.svg?raw";
 
 const lang = Astro.currentLocale === "zh-TW" ? "zh-TW" : "en";
@@ -20,17 +22,32 @@ const zhUrl = getRelativeLocaleUrl("zh-TW", rawPath);
   <div
     class="sticky top-2 flex h-(--header-height) justify-center md:mx-auto md:w-fit md:max-w-480 md:gap-10 md:rounded-xl md:bg-white/50 md:px-10 md:shadow md:backdrop-blur-sm"
   >
+    <!-- Home -->
     <a
-      href={lang === "zh-TW" ? enUrl : zhUrl}
+      href={getRelativeLocaleUrl(lang, "/")}
       class="text-sakura-900 hover:text-sakura-400 hidden h-(--header-height) w-16 flex-col items-center pt-2 md:flex"
     >
-      <div class="grid size-16 flex-none place-items-center text-5xl">
-        <span class="block size-14" set:html={iconGlobus} />
+      <div class="grid size-16 flex-none place-items-center">
+        <span class="block size-14" set:html={iconTaiyaki} />
       </div>
       <div class="text-md text-center font-semibold">
-        {lang === "zh-TW" ? "English" : "中文"}
+        {lang === "zh-TW" ? "首頁" : "Home"}
       </div>
     </a>
+
+    <!-- Gallery -->
+    <a
+      href={getRelativeLocaleUrl(lang, "/gallery")}
+      class="text-sakura-900 hover:text-sakura-400 hidden h-(--header-height) w-16 flex-col items-center pt-2 md:flex"
+    >
+      <div class="grid size-16 flex-none place-items-center">
+        <span class="block size-14" set:html={iconCamera} />
+      </div>
+      <div class="text-md text-center font-semibold">
+        {lang === "zh-TW" ? "回憶" : "Memories"}
+      </div>
+    </a>
+
     <div
       class="pointer-events-none sticky top-0 -mt-[calc(50svh-var(--header-height)-var(--header-margin)+0.5rem)] h-[calc(50svh-var(--header-margin)+0.5rem)]"
       aria-hidden="true"
@@ -56,6 +73,20 @@ const zhUrl = getRelativeLocaleUrl("zh-TW", rawPath);
         />
       </div>
     </div>
+
+    <!-- Language switcher -->
+    <a
+      href={lang === "zh-TW" ? enUrl : zhUrl}
+      class="text-sakura-900 hover:text-sakura-400 hidden h-(--header-height) w-16 flex-col items-center pt-2 md:flex"
+    >
+      <div class="grid size-16 flex-none place-items-center text-5xl">
+        <span class="block size-14" set:html={iconGlobus} />
+      </div>
+      <div class="text-md text-center font-semibold">
+        {lang === "zh-TW" ? "English" : "中文"}
+      </div>
+    </a>
+
     <BgmPlayer />
   </div>
 </header>

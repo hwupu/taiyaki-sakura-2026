@@ -1,0 +1,213 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import GalleryModal from "@/components/gallery/GalleryModal.astro";
+
+// ── Season 01 ──────────────────────────────────────────────────────────────
+import s1RawMap from "@/data/gallery/season-01/raw-map.json";
+import s1Atlantis from "@/data/gallery/season-01/atlantis.json";
+import s1Konoha from "@/data/gallery/season-01/konoha.json";
+import s1Aquarium from "@/data/gallery/season-01/aquarium.json";
+import s1NavalBase from "@/data/gallery/season-01/naval-base.json";
+import s1Resort from "@/data/gallery/season-01/resort.json";
+import s1WhiteHouse from "@/data/gallery/season-01/white-house.json";
+import s1Hyakuya from "@/data/gallery/season-01/hyakuya.json";
+import s1Settings from "@/data/gallery/season-01/settings.json";
+import s1Gym from "@/data/gallery/season-01/gym.json";
+import s1Alcanretia from "@/data/gallery/season-01/alcanretia.json";
+
+// ── Season 02 ──────────────────────────────────────────────────────────────
+import s2Hotel from "@/data/gallery/season-02/hotel.json";
+import s2LycoReco from "@/data/gallery/season-02/lyco-reco.json";
+import s2W3 from "@/data/gallery/season-02/w3.json";
+import s2CentralStn from "@/data/gallery/season-02/central-station.json";
+import s2Mural from "@/data/gallery/season-02/mural.json";
+import s2NewVillage from "@/data/gallery/season-02/new-village.json";
+import s2Asahi from "@/data/gallery/season-02/asahi-mochizuki.json";
+import s2Aquarium from "@/data/gallery/season-02/aquarium.json";
+import s2Festival from "@/data/gallery/season-02/festival.json";
+import s2SecretRealm from "@/data/gallery/season-02/secret-realm.json";
+import s2Alcanretia from "@/data/gallery/season-02/alcanretia.json";
+
+// ── Helpers ────────────────────────────────────────────────────────────────
+const CDN = "https://cdn.phwu.work/gallery";
+const enc = encodeURIComponent;
+
+type RawEntry = { src: string; en: { alt: string; caption?: string } };
+
+function build(data: RawEntry[], season: string, folder: string) {
+  const base = `${CDN}/${enc(season)}/${enc(folder)}`;
+  return data.map((img) => ({
+    src: `${base}/${img.src}`,
+    alt: img.en.alt,
+    ...(img.en.caption ? { caption: img.en.caption } : {}),
+  }));
+}
+
+// ── Season 01 image arrays ─────────────────────────────────────────────────
+const rawMap = build(s1RawMap, "Season 01", "raw map");
+const atlantis = build(s1Atlantis, "Season 01", "亞特蘭提斯");
+const konoha = build(s1Konoha, "Season 01", "木葉");
+const aquariumS1 = build(s1Aquarium, "Season 01", "水族館");
+const navalBase = build(s1NavalBase, "Season 01", "海軍基地");
+const resort = build(s1Resort, "Season 01", "渡假村");
+const whiteHouse = build(s1WhiteHouse, "Season 01", "白宮");
+const hyakuya = build(s1Hyakuya, "Season 01", "百葉");
+const settings = build(s1Settings, "Season 01", "設定畫面");
+const gym = build(s1Gym, "Season 01", "道館");
+const alcanS1 = build(s1Alcanretia, "Season 01", "阿爾坎雷提亞");
+
+// ── Season 02 image arrays ─────────────────────────────────────────────────
+const hotel = build(s2Hotel, "Season 02", "Hotel");
+const lycoReco = build(s2LycoReco, "Season 02", "LycoReco");
+const w3 = build(s2W3, "Season 02", "W3");
+const centralStn = build(s2CentralStn, "Season 02", "中央站");
+const mural = build(s2Mural, "Season 02", "壁畫");
+const newVillage = build(s2NewVillage, "Season 02", "新村");
+const asahi = build(s2Asahi, "Season 02", "朝日-望月");
+const aquariumS2 = build(s2Aquarium, "Season 02", "水族館");
+const festival = build(s2Festival, "Season 02", "祭典");
+const secretRealm = build(s2SecretRealm, "Season 02", "秘境");
+const alcanS2 = build(s2Alcanretia, "Season 02", "阿爾坎雷提亞");
+---
+
+<BaseLayout title="Gallery — Taiyaki Sakura">
+  <div class="mx-auto max-w-5xl space-y-12 px-4 py-12">
+    <!-- ── Season 01 ──────────────────────────────────────────── -->
+    <h1 class="text-sakura-900 text-3xl font-bold">Season 01</h1>
+
+    <section>
+      <h2 class="text-sakura-700 mb-3 text-xl font-semibold">
+        Atlantis · 亞特蘭提斯
+      </h2>
+      <GalleryModal images={atlantis} layout="strip" id="s1-atlantis" />
+    </section>
+
+    <section>
+      <h2 class="text-sakura-700 mb-3 text-xl font-semibold">
+        Polywood City · 木葉市
+      </h2>
+      <GalleryModal images={konoha} layout="strip" id="s1-konoha" />
+    </section>
+
+    <section>
+      <h2 class="text-sakura-700 mb-3 text-xl font-semibold">
+        Aquarium · 水族館
+      </h2>
+      <GalleryModal images={aquariumS1} layout="strip" id="s1-aquarium" />
+    </section>
+
+    <section>
+      <h2 class="text-sakura-700 mb-3 text-xl font-semibold">
+        SeaBase · 海軍基地
+      </h2>
+      <GalleryModal images={navalBase} layout="strip" id="s1-naval-base" />
+    </section>
+
+    <section>
+      <h2 class="text-sakura-700 mb-3 text-xl font-semibold">
+        Resort · 渡假村
+      </h2>
+      <GalleryModal images={resort} layout="strip" id="s1-resort" />
+    </section>
+
+    <section>
+      <h2 class="text-sakura-700 mb-3 text-xl font-semibold">
+        White House · 白宮
+      </h2>
+      <GalleryModal images={whiteHouse} layout="strip" id="s1-white-house" />
+    </section>
+
+    <section>
+      <h2 class="text-sakura-700 mb-3 text-xl font-semibold">TOFU · 百葉</h2>
+      <GalleryModal images={hyakuya} layout="strip" id="s1-hyakuya" />
+    </section>
+
+    <section>
+      <h2 class="text-sakura-700 mb-3 text-xl font-semibold">Dokan · 道館</h2>
+      <GalleryModal images={gym} layout="strip" id="s1-gym" />
+    </section>
+
+    <section>
+      <h2 class="text-sakura-700 mb-3 text-xl font-semibold">
+        Alcanretia · 阿爾坎雷提亞
+      </h2>
+      <GalleryModal images={alcanS1} layout="strip" id="s1-alcanretia" />
+    </section>
+
+    <!-- ── Season 02 ──────────────────────────────────────────── -->
+    <h1 class="text-sakura-900 pt-8 text-3xl font-bold">Season 02</h1>
+
+    <section>
+      <h2 class="text-sakura-700 mb-3 text-xl font-semibold">Hotel · 飯店</h2>
+      <GalleryModal images={hotel} layout="strip" id="s2-hotel" />
+    </section>
+
+    <section>
+      <h2 class="text-sakura-700 mb-3 text-xl font-semibold">LycoReco</h2>
+      <GalleryModal images={lycoReco} layout="strip" id="s2-lyco-reco" />
+    </section>
+
+    <section>
+      <h2 class="text-sakura-700 mb-3 text-xl font-semibold">W3</h2>
+      <GalleryModal images={w3} layout="strip" id="s2-w3" />
+    </section>
+
+    <section>
+      <h2 class="text-sakura-700 mb-3 text-xl font-semibold">
+        Central Station · 中央站
+      </h2>
+      <GalleryModal
+        images={centralStn}
+        layout="strip"
+        id="s2-central-station"
+      />
+    </section>
+
+    <section>
+      <h2 class="text-sakura-700 mb-3 text-xl font-semibold">Mural · 壁畫</h2>
+      <GalleryModal images={mural} layout="strip" id="s2-mural" />
+    </section>
+
+    <section>
+      <h2 class="text-sakura-700 mb-3 text-xl font-semibold">
+        New Village · 新村
+      </h2>
+      <GalleryModal images={newVillage} layout="strip" id="s2-new-village" />
+    </section>
+
+    <section>
+      <h2 class="text-sakura-700 mb-3 text-xl font-semibold">
+        Asahi-Mochizuki · 朝日・望月
+      </h2>
+      <GalleryModal images={asahi} layout="strip" id="s2-asahi" />
+    </section>
+
+    <section>
+      <h2 class="text-sakura-700 mb-3 text-xl font-semibold">
+        Aquarium · 水族館
+      </h2>
+      <GalleryModal images={aquariumS2} layout="strip" id="s2-aquarium" />
+    </section>
+
+    <section>
+      <h2 class="text-sakura-700 mb-3 text-xl font-semibold">
+        Festival · 祭典
+      </h2>
+      <GalleryModal images={festival} layout="strip" id="s2-festival" />
+    </section>
+
+    <section>
+      <h2 class="text-sakura-700 mb-3 text-xl font-semibold">
+        Secret Realm · 秘境
+      </h2>
+      <GalleryModal images={secretRealm} layout="strip" id="s2-secret-realm" />
+    </section>
+
+    <section>
+      <h2 class="text-sakura-700 mb-3 text-xl font-semibold">
+        Alcanretia · 阿爾坎雷提亞
+      </h2>
+      <GalleryModal images={alcanS2} layout="strip" id="s2-alcanretia" />
+    </section>
+  </div>
+</BaseLayout>
