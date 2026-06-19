@@ -79,8 +79,13 @@ import iconMuted from "@/icons/solar/solar--muted-bold.svg?raw";
     .then(syncAll)
     .catch(() => {
       syncAll(); // show muted state while autoplay is blocked
-      document.addEventListener("click", () => audio.play().then(syncAll), {
-        once: true,
-      });
+      document.addEventListener(
+        "click",
+        () => {
+          (window as any).clarity?.("consent");
+          audio.play().then(syncAll);
+        },
+        { once: true },
+      );
     });
 </script>
