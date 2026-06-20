@@ -1,6 +1,7 @@
 ---
 import Barebone from "@/layouts/Barebone.astro";
 import Fab from "@/components/layout/LayoutFab.astro";
+import Hero from "@/components/Hero.astro";
 import Header from "@/components/layout/LayoutHeader.astro";
 import Footer from "@/components/layout/LayoutFooter.astro";
 
@@ -12,20 +13,7 @@ import EditorNotes from "@/components/editor/EditorNotesZhV1.astro";
 
 <Barebone title="Taiyaki Sakura">
   <Fab />
-  <aside
-    class="bg-sakura-50 pointer-events-none relative isolate z-15 mx-auto grid min-h-svh max-w-480 place-items-center pb-[calc(var(--header-height)+var(--header-margin)+0.5rem)]"
-  >
-    <picture>
-      <source srcset="/images/taiyaki-type-ring@3x.avif" type="image/avif" />
-      <source srcset="/images/taiyaki-type-ring@3x.webp" type="image/webp" />
-      <img
-        src="/images/taiyaki-type-ring@3x.png"
-        alt="Taiyaki Sakura"
-        width="320"
-        class="pointer-events-none max-w-[min(320px,80vw)]"
-      />
-    </picture>
-  </aside>
+  <Hero />
   <Header />
 
   <main

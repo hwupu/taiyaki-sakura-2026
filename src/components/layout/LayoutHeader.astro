@@ -20,7 +20,7 @@ const zhUrl = getRelativeLocaleUrl("zh-TW", rawPath);
   class="sticky top-0 z-20 -mt-[calc(var(--header-height)+env(safe-area-inset-bottom)+var(--header-margin)+0.5rem)] h-[calc(var(--header-height)+env(safe-area-inset-bottom)+var(--header-margin)+0.5rem)]"
 >
   <div
-    class="sticky top-2 flex h-(--header-height) justify-center md:mx-auto md:w-fit md:max-w-480 md:gap-10 md:rounded-xl md:bg-white/50 md:px-10 md:shadow md:backdrop-blur-sm"
+    class="sticky top-0 flex h-(--header-height) justify-center backdrop-blur-sm md:mx-auto md:w-fit md:max-w-480 md:gap-10 md:rounded-xl md:bg-white/50 md:px-10 md:shadow"
   >
     <!-- Home -->
     <a
@@ -49,7 +49,7 @@ const zhUrl = getRelativeLocaleUrl("zh-TW", rawPath);
     </a>
 
     <div
-      class="pointer-events-none sticky top-0 -mt-[calc(50svh-var(--header-height)-var(--header-margin)+0.5rem)] h-[calc(50svh-var(--header-margin)+0.5rem)]"
+      class="pointer-events-none sticky top-0 -mt-[calc(40svh-var(--header-height)-var(--header-margin)+0.5rem)] h-[calc(40svh-var(--header-margin)+0.5rem)] md:-mt-[calc(45svh-var(--header-height)-var(--header-margin)+0.5rem)] md:h-[calc(45svh-var(--header-margin)+0.5rem)]"
       aria-hidden="true"
     >
       <div class="sticky top-0 h-(--header-height) flex-none">
@@ -60,7 +60,7 @@ const zhUrl = getRelativeLocaleUrl("zh-TW", rawPath);
             src="/images/type-logo-sakura@3x.png"
             alt="Taiyaki Sakura"
             width="280"
-            class="pointer-events-none max-w-[min(280px,70vw)] translate-x-2 -translate-y-2"
+            class="pointer-events-none max-w-[min(280px,70vw)] translate-x-2 -translate-y-4"
           />
         </picture>
       </div>

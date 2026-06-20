@@ -1,0 +1,60 @@
+---
+import { getRelativeLocaleUrl } from "astro:i18n";
+
+import iconGlobus from "@/icons/solar/solar--globus-bold.svg?raw";
+import iconMuted from "@/icons/solar/solar--muted-bold.svg?raw";
+
+const lang = Astro.currentLocale === "zh-TW" ? "zh-TW" : "en";
+
+const rawPath = Astro.url.pathname.startsWith("/zh")
+  ? Astro.url.pathname.slice(3) || "/"
+  : Astro.url.pathname;
+const enUrl = getRelativeLocaleUrl("en", rawPath);
+const zhUrl = getRelativeLocaleUrl("zh-TW", rawPath);
+---
+
+<aside
+  class="bg-sakura-50 relative isolate z-15 mx-auto grid min-h-svh max-w-480 place-items-center pt-[20svh] pb-[calc(var(--header-height)+var(--header-margin)+0.5rem)] md:pt-[10svh]"
+>
+  <picture>
+    <source srcset="/images/taiyaki-type-ring@3x.avif" type="image/avif" />
+    <source srcset="/images/taiyaki-type-ring@3x.webp" type="image/webp" />
+    <img
+      src="/images/taiyaki-type-ring@3x.png"
+      alt="Taiyaki Sakura"
+      width="320"
+      class="pointer-events-none max-w-[min(320px,80vw)]"
+    />
+  </picture>
+  <div
+    class="absolute inset-x-0 top-0 flex items-center justify-end gap-4 px-4 md:hidden"
+  >
+    <!-- BGM control -->
+    <button
+      data-bgm-btn
+      aria-label="Toggle background music"
+      aria-pressed="false"
+      class="text-sakura-900 flex flex-col items-center border-0 bg-transparent p-0"
+    >
+      <span
+        data-bgm-icon
+        class="grid size-12 flex-none place-items-center text-5xl"
+        set:html={iconMuted}
+      />
+      <span class="text-md text-center font-semibold">BGM</span>
+    </button>
+
+    <!-- Language switcher -->
+    <a
+      href={lang === "zh-TW" ? enUrl : zhUrl}
+      class="text-sakura-900 flex flex-col items-center"
+    >
+      <div class="grid size-12 flex-none place-items-center text-5xl">
+        <span class="block size-10" set:html={iconGlobus} />
+      </div>
+      <div class="text-md text-center font-semibold">
+        {lang === "zh-TW" ? "English" : "中文"}
+      </div>
+    </a>
+  </div>
+</aside>
