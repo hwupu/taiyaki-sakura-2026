@@ -36,7 +36,7 @@ type RawEntry = { src: string; en: { alt: string; caption?: string } };
 function build(data: RawEntry[], season: string, folder: string) {
   const base = `${CDN}/${enc(season)}/${enc(folder)}`;
   return data.map((img) => ({
-    src: `${base}/${img.src}`,
+    src: `${base}/${enc(img.src)}`,
     alt: img.en.alt,
     ...(img.en.caption ? { caption: img.en.caption } : {}),
   }));
